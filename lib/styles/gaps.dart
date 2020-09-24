@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 /// 间隔
-class Gaps {
+class LGaps {
   /// 水平间隔
   static Widget hGap(width) => SizedBox(width: width);
   /// 垂直间隔

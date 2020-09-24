@@ -16,9 +16,9 @@ class LCell extends StatelessWidget {
 
   const LCell({
     Key key,
-    this.left: Gaps.empty,
-    this.right: Gaps.empty,
-    this.body: Gaps.empty,
+    this.left: LGaps.empty,
+    this.right: LGaps.empty,
+    this.body: LGaps.empty,
     this.onTap,
     this.decoration,
     this.backgroundColor: Colors.white,
@@ -38,7 +38,10 @@ class LCell extends StatelessWidget {
     TextStyle labelStyle,
     bool bordered,
     bool isLink,
+    EdgeInsets padding,
     EdgeInsets linkPadding,
+    EdgeInsets labelPadding,
+    EdgeInsets margin,
     Widget linkIcon,
     Widget left,
     Widget body,
@@ -94,15 +97,18 @@ class LCell extends StatelessWidget {
 class _CellPrimary extends LCell {
   _CellPrimary({
     final Key key,
-    final Widget prefixLeft = Gaps.empty,
-    final Widget prefixRight = Gaps.empty,
+    final Widget prefixLeft = LGaps.empty,
+    final Widget prefixRight = LGaps.empty,
     @required String title,
     final TextStyle titleStyle,
     final String label = "",
     final TextStyle labelStyle,
     final bool bordered = true,
     final bool isLink = false,
+    final EdgeInsets padding = const EdgeInsets.symmetric(vertical: 16),
+    final EdgeInsets labelPadding = const EdgeInsets.only(right: 15.0),
     final EdgeInsets linkPadding = const EdgeInsets.symmetric(horizontal: 10),
+    final EdgeInsets margin = const EdgeInsets.only(left: 15),
     final Widget linkIcon = const Icon(Icons.arrow_forward_ios, color: Colours.gray6, size: 14,),
     final Widget left,
     final Widget body,
@@ -115,12 +121,14 @@ class _CellPrimary extends LCell {
           onTap: onTap,
           bordered: bordered,
           crossAxisAlignment: crossAxisAlignment,
+          margin: margin,
+          padding: padding,
           left: left??Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               prefixLeft,
               Text(
-                title,
+                title??"",
                 style: TextStyle(
                   color: Colours.gray8,
                 ).merge(titleStyle),
@@ -128,16 +136,19 @@ class _CellPrimary extends LCell {
               prefixRight,
             ],
           ),
-          body: body??Text(
-            label,
-            style: TextStyle(
-              color: Colours.gray6,
-            ).merge(labelStyle),
-            textAlign: TextAlign.right,
+          body: Padding(
+            padding: labelPadding,
+            child: body??Text(
+              label,
+              style: TextStyle(
+                color: Colours.gray6,
+              ).merge(labelStyle),
+              textAlign: TextAlign.right,
+            ),
           ),
           right: right?? isLink ? Padding(
             padding: linkPadding,
             child: linkIcon,
-          ) : Gaps.empty,
+          ) : LGaps.empty,
         );
 }
