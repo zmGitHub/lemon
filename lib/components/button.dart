@@ -316,7 +316,6 @@ class _LButton extends State<LButton> with SingleTickerProviderStateMixin {
     updateParam();
     animationController = AnimationController(
       duration: Duration(milliseconds: 300),
-      vsync: this,
     );
     shadowTween = Tween(begin: 0, end: widget.shadowBlur);
     animationController.addListener(() {

@@ -146,7 +146,7 @@ class _CellPrimary extends LCell {
               textAlign: TextAlign.right,
             ),
           ),
-          right: right?? isLink ? Padding(
+          right: right != null ? right : isLink ? Padding(
             padding: linkPadding,
             child: linkIcon,
           ) : LGaps.empty,
