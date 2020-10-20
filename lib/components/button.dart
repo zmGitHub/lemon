@@ -335,10 +335,7 @@ class _LButton extends State<LButton> with SingleTickerProviderStateMixin {
 
   @override
   void dispose() {
-    widget.controller?.removeListener(_onParamsChange);
-
     animationController.dispose();
-    widget.controller?.dispose();
     super.dispose();
   }
 
@@ -357,9 +354,11 @@ class _LButton extends State<LButton> with SingleTickerProviderStateMixin {
       // this.clickLoading = false,
       // this.hideTextOnLoading = false,
       // this.loadingText,
-      setState(() {
-        loading = loadingValue.loading;
-      });
+      if (mounted) {
+        setState(() {
+          loading = loadingValue.loading;
+        });
+      }
     }
   }
 
