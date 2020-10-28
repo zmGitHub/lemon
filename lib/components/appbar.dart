@@ -103,6 +103,13 @@ class LAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
       );
     }
+    Widget _middle = middle;
+    if (middle == null) {
+      _middle = Text(title??"", style: TextStyle(
+        fontSize: 14,
+        color: Colours.black,
+      ).merge(titleStyle),);
+    }
 
     // appbar
     Widget _appbar = ClipRect(
@@ -112,10 +119,7 @@ class LAppBar extends StatelessWidget implements PreferredSizeWidget {
           data: _overallIconTheme,
           child: NavigationToolbar(
             leading: _leading,
-            middle: middle?? title.isEmpty ? null : Text(title, style: TextStyle(
-              fontSize: 14,
-              color: Colours.black,
-            ).merge(titleStyle),),
+            middle: _middle,
             trailing: _trailing,
             centerMiddle: centerTitle,
             middleSpacing: middleSpacing,
