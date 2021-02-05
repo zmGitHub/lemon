@@ -58,6 +58,7 @@ class LInput extends StatelessWidget {
     final Key key,
     final String title,
     final TextStyle titleStyle,
+    final TextStyle inputStyle,
     final double titleWidth,
     final String hintText,
     final TextStyle hintStyle,
@@ -165,6 +166,7 @@ class _LabelInput extends LInput {
     final double titleWidth = 80.0,
     final String hintText = "",
     final TextStyle hintStyle,
+    final TextStyle inputStyle,
     final Widget left,
     final Widget right = LGaps.empty,
     final Color backgroundColor = Colors.white,
@@ -191,6 +193,7 @@ class _LabelInput extends LInput {
   }) : assert(title != null, "title required"),super(
           key: key,
           inputHeight: inputHeight,
+          inputStyle: inputStyle,
           controller: controller,
           onChanged: onChanged,
           onEditingComplete: onEditingComplete,
