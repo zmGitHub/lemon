@@ -30,6 +30,7 @@ class LCell extends StatelessWidget {
 
   factory LCell.primary({
     Key key,
+    Color backgroundColor,
     Widget prefixLeft,
     Widget prefixRight,
     @required String title,
@@ -97,6 +98,7 @@ class LCell extends StatelessWidget {
 class _CellPrimary extends LCell {
   _CellPrimary({
     final Key key,
+    final Color backgroundColor,
     final Widget prefixLeft = LGaps.empty,
     final Widget prefixRight = LGaps.empty,
     @required String title,
@@ -118,6 +120,7 @@ class _CellPrimary extends LCell {
   })  : assert(title != null),
         super(
           key: key,
+          backgroundColor: backgroundColor,
           onTap: onTap,
           bordered: bordered,
           crossAxisAlignment: crossAxisAlignment,
