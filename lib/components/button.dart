@@ -340,7 +340,6 @@ class _LButton extends State<LButton> with SingleTickerProviderStateMixin {
   }
 
   void _onParamsChange() {
-    print("*****");
     Map<String, dynamic> values = widget.controller?.value??{};
     if (values["loadingConfig"] != null) {
       ButtonLoadingValue loadingValue = (values["loadingConfig"] as ButtonLoadingValue);

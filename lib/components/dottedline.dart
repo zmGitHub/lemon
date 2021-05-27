@@ -35,7 +35,7 @@ class LDottedLineCorner {
         leftBottomCorner = radius;
 }
 
-class FDottedLine extends StatefulWidget {
+class LDottedLine extends StatefulWidget {
   /// 虚线颜色
   ///
   /// Dotted line color
@@ -75,17 +75,17 @@ class FDottedLine extends StatefulWidget {
   /// The corners of the dotted border. See [LDottedLineCorner] for details
   final LDottedLineCorner corner;
 
-  /// 如果设置了 [child]，[FDottedLine] 将会作为 [child] 的虚线边框。
+  /// 如果设置了 [child]，[LDottedLine] 将会作为 [child] 的虚线边框。
   /// 此时，[width] 和 [height] 将不再有效。
   ///
-  /// If [child] is set, [FDottedLine] will serve as the dotted border of [child].
+  /// If [child] is set, [LDottedLine] will serve as the dotted border of [child].
   /// At this time, [width] and [height] will no longer be valid.
   final Widget child;
 
-  /// [FDottedLine] 为开发者提供了创建虚线的能力。同时支持为一个 [Widget] 创建虚线边框。支持控制虚线的粗细，间距，以及虚线边框的边角。
+  /// [LDottedLine] 为开发者提供了创建虚线的能力。同时支持为一个 [Widget] 创建虚线边框。支持控制虚线的粗细，间距，以及虚线边框的边角。
   ///
-  /// [FDottedLine] provides developers with the ability to create dashed lines. It also supports creating a dashed border for a [Widget]. Support for controlling the thickness, spacing, and corners of the dotted border.
-  FDottedLine({
+  /// [LDottedLine] provides developers with the ability to create dashed lines. It also supports creating a dashed border for a [Widget]. Support for controlling the thickness, spacing, and corners of the dotted border.
+  LDottedLine({
     Key key,
     this.color = Colors.black,
     this.height,
@@ -100,10 +100,10 @@ class FDottedLine extends StatefulWidget {
   }
 
   @override
-  _FDottedLineState createState() => _FDottedLineState();
+  _LDottedLineState createState() => _LDottedLineState();
 }
 
-class _FDottedLineState extends State<FDottedLine> {
+class _LDottedLineState extends State<LDottedLine> {
   double childWidth;
   double childHeight;
   GlobalKey childKey = GlobalKey();

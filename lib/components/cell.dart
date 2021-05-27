@@ -6,6 +6,7 @@ class LCell extends StatelessWidget {
   final Widget left;
   final Widget body;
   final Widget right;
+  final Widget content;
   final bool bordered;
   final Color backgroundColor;
   final BoxDecoration decoration;
@@ -19,6 +20,7 @@ class LCell extends StatelessWidget {
     this.left: LGaps.empty,
     this.right: LGaps.empty,
     this.body: LGaps.empty,
+    this.content,
     this.onTap,
     this.decoration,
     this.backgroundColor: Colors.white,
@@ -47,58 +49,72 @@ class LCell extends StatelessWidget {
     Widget left,
     Widget body,
     Widget right,
+    Widget content,
     GestureTapCallback onTap,
     CrossAxisAlignment crossAxisAlignment,
   }) = _CellPrimary;
 
   @override
-  Widget build(BuildContext context) => Material(
-        color: backgroundColor,
-        child: InkWell(
-          onTap: onTap,
-          child: Container(
-            padding: padding,
-            margin: margin,
-            decoration: BoxDecoration(
-              border: bordered
-                  ? Border(
-                      bottom: Divider.createBorderSide(
-                        context,
-                        width: 0.7,
-                        color: Colours.gray3,
-                      ),
-                    )
-                  : null,
-            ).copyWith(
-              border: decoration?.border,
-              color: decoration?.color,
-              image: decoration?.image,
-              borderRadius: decoration?.borderRadius,
-              boxShadow: decoration?.boxShadow,
-              gradient: decoration?.gradient,
-              backgroundBlendMode: decoration?.backgroundBlendMode,
-              shape: decoration?.shape,
-            ),
-            child: Row(
-              crossAxisAlignment: crossAxisAlignment,
-              children: <Widget>[
-                left,
-                Expanded(
-                  flex: 1,
-                  child: body,
-                ),
-                right,
-              ],
-            ),
-          ),
+  Widget build(BuildContext context) {
+    Widget child = Row(
+      crossAxisAlignment: crossAxisAlignment,
+      children: <Widget>[
+        left,
+        Expanded(
+          flex: 1,
+          child: body,
         ),
+        right,
+      ],
+    );
+    if (content != null) {
+      child = Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          child,
+          content,
+        ],
       );
+    }
+    return Material(
+      color: backgroundColor,
+      child: InkWell(
+        onTap: onTap,
+        child: Container(
+          padding: padding,
+          margin: margin,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            border: bordered
+                ? Border(
+              bottom: Divider.createBorderSide(
+                context,
+                width: 0.7,
+                color: Colours.gray3,
+              ),
+            )
+                : null,
+          ).copyWith(
+            border: decoration?.border,
+            color: decoration?.color,
+            image: decoration?.image,
+            borderRadius: decoration?.borderRadius,
+            boxShadow: decoration?.boxShadow,
+            gradient: decoration?.gradient,
+            backgroundBlendMode: decoration?.backgroundBlendMode,
+            shape: decoration?.shape,
+          ),
+          child: child,
+        ),
+      ),
+    );
+  }
 }
 
 class _CellPrimary extends LCell {
   _CellPrimary({
     final Key key,
-    final Color backgroundColor,
+    final Color backgroundColor = Colors.white,
     final Widget prefixLeft = LGaps.empty,
     final Widget prefixRight = LGaps.empty,
     @required String title,
@@ -115,6 +131,7 @@ class _CellPrimary extends LCell {
     final Widget left,
     final Widget body,
     final Widget right,
+    final Widget content,
     final GestureTapCallback onTap,
     final CrossAxisAlignment crossAxisAlignment = CrossAxisAlignment.center,
   })  : assert(title != null),
@@ -149,6 +166,7 @@ class _CellPrimary extends LCell {
               textAlign: TextAlign.right,
             ),
           ),
+          content: content,
           right: right != null ? right : isLink ? Padding(
             padding: linkPadding,
             child: linkIcon,
