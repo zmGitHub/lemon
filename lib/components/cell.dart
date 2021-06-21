@@ -23,11 +23,11 @@ class LCell extends StatelessWidget {
     this.content,
     this.onTap,
     this.decoration,
-    this.backgroundColor: Colors.white,
-    this.padding: const EdgeInsets.symmetric(vertical: 16),
-    this.margin: const EdgeInsets.only(left: 15),
-    this.bordered: false,
-    this.crossAxisAlignment: CrossAxisAlignment.center,
+    this.backgroundColor = Colors.white,
+    this.padding = const EdgeInsets.symmetric(vertical: 16),
+    this.margin = const EdgeInsets.only(left: 15),
+    this.bordered = false,
+    this.crossAxisAlignment = CrossAxisAlignment.center,
   }) : super(key: key);
 
   factory LCell.primary({
