@@ -232,7 +232,6 @@ class _LabelInput extends LInput {
             errorText: inputDecoration?.errorText,
             errorStyle: inputDecoration?.errorStyle,
             errorMaxLines: inputDecoration?.errorMaxLines,
-            hasFloatingPlaceholder: inputDecoration?.hasFloatingPlaceholder,
             floatingLabelBehavior: inputDecoration?.floatingLabelBehavior,
             isCollapsed: inputDecoration?.isCollapsed,
             isDense: inputDecoration?.isDense,
