@@ -1,33 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:lemon/lemon.dart';
 import 'package:lemon/styles/colors.dart';
 
 class LAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final double height;
-  final Decoration decoration;
-  final Brightness brightness;
-  final double middleSpacing;
-  final bool centerTitle;
-  final bool bottomBordered;
-  final String title;
-  final TextStyle titleStyle;
-  final List<Widget> actions;
-  final Widget leading;
-  final Widget middle;
-  final PreferredSizeWidget bottom;
-  final IconData leadingIcon;
-  final Color backgroundColor;
-  final Color leadingColor;
-  final double leaderSize;
-  final VoidCallback onPressed;
-  final IconThemeData iconTheme;
-  final IconThemeData actionsIconTheme;
-  @override
-  final Size preferredSize;
-
   LAppBar({
-    Key key,
+    Key? key,
     this.title = '',
     this.titleStyle,
     this.height = 48.0,
@@ -47,25 +24,45 @@ class LAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.iconTheme,
     this.actionsIconTheme,
     this.onPressed,
-  }) : preferredSize = Size.fromHeight(height + (bottom?.preferredSize?.height ?? 0.0)),super(key: key);
+  }) : preferredSize = Size.fromHeight(height! + (bottom?.preferredSize.height ?? 0.0)),super(key: key);
+
+  final double? height;
+  final Decoration? decoration;
+  final Brightness? brightness;
+  final double? middleSpacing;
+  final bool? centerTitle;
+  final bool? bottomBordered;
+  final String title;
+  final TextStyle? titleStyle;
+  final List<Widget>? actions;
+  final Widget? leading;
+  final Widget? middle;
+  final PreferredSizeWidget? bottom;
+  final IconData? leadingIcon;
+  final Color? backgroundColor;
+  final Color? leadingColor;
+  final double? leaderSize;
+  final VoidCallback? onPressed;
+  final IconThemeData? iconTheme;
+  final IconThemeData? actionsIconTheme;
+  @override
+  final Size preferredSize;
 
   @override
   Widget build(BuildContext context) {
     final AppBarTheme appBarTheme = AppBarTheme.of(context);
     final ThemeData theme = Theme.of(context);
     // icon样式
-    IconThemeData _overallIconTheme = iconTheme
+    final IconThemeData _overallIconTheme = iconTheme
         ?? appBarTheme.iconTheme
         ?? theme.primaryIconTheme;
 
-    IconThemeData _actionsIconTheme = actionsIconTheme
+    final IconThemeData _actionsIconTheme = actionsIconTheme
         ?? appBarTheme.actionsIconTheme
         ?? _overallIconTheme;
     // 返回按钮处理
-    final ModalRoute<dynamic> parentRoute = ModalRoute.of(context);
+    final ModalRoute<Object?>? parentRoute = ModalRoute.of(context);
     final bool canPop = parentRoute?.canPop ?? false;
-    final bool useCloseButton =
-        parentRoute is PageRoute<dynamic> && parentRoute.fullscreenDialog;
 
     // 状态栏样式
     final Brightness _brightness =
@@ -75,14 +72,14 @@ class LAppBar extends StatelessWidget implements PreferredSizeWidget {
         : SystemUiOverlayStyle.dark;
 
     // 左侧按钮
-    Widget _leading = leading;
+    Widget? _leading = leading;
     if (_leading == null && canPop) {
       _leading = IconButton(
         icon: Icon(leadingIcon, size: leaderSize, color: leadingColor,),
         tooltip: MaterialLocalizations.of(context).backButtonTooltip,
         onPressed: () {
           if (onPressed != null) {
-            onPressed();
+            onPressed!();
           } else {
             // 返回前 先把键盘收起来
             FocusManager.instance.primaryFocus?.unfocus();
@@ -92,20 +89,20 @@ class LAppBar extends StatelessWidget implements PreferredSizeWidget {
       );
     }
 
-    Widget _trailing;
+    Widget? _trailing;
     if (actions != null) {
       _trailing = IconTheme.merge(
         data: _actionsIconTheme,
         child: Row(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: actions,
+          children: actions!,
         ),
       );
     }
-    Widget _middle = middle;
+    Widget? _middle = middle;
     if (middle == null) {
-      _middle = Text(title??"", style: TextStyle(
+      _middle = Text(title, style: const TextStyle(
         fontSize: 14,
         color: Colours.black,
       ).merge(titleStyle),);
@@ -114,15 +111,15 @@ class LAppBar extends StatelessWidget implements PreferredSizeWidget {
     // appbar
     Widget _appbar = ClipRect(
       child: CustomSingleChildLayout(
-        delegate: _ToolbarContainerLayout(height),
+        delegate: _ToolbarContainerLayout(height!),
         child: IconTheme.merge(
           data: _overallIconTheme,
           child: NavigationToolbar(
             leading: _leading,
             middle: _middle,
             trailing: _trailing,
-            centerMiddle: centerTitle,
-            middleSpacing: middleSpacing,
+            centerMiddle: centerTitle!,
+            middleSpacing: middleSpacing!,
           ),
         ),
       ),
@@ -131,14 +128,14 @@ class LAppBar extends StatelessWidget implements PreferredSizeWidget {
     // 底部组件
     if (bottom != null) {
       _appbar = Column(
-        children: [
+        children: <Widget>[
           Flexible(
             child: ConstrainedBox(
-              constraints: BoxConstraints(maxHeight: height),
+              constraints: BoxConstraints(maxHeight: height!),
               child: _appbar,
             ),
           ),
-          bottom,
+          bottom!,
         ],
       );
     }
@@ -152,7 +149,7 @@ class LAppBar extends StatelessWidget implements PreferredSizeWidget {
           color: backgroundColor,
           child: DecoratedBox(
             decoration: decoration??BoxDecoration(
-              border: bottomBordered ? Border(
+              border: bottomBordered! ? const Border(
                 bottom: BorderSide(color: Colours.gray4, width: 0.75),
               ) : null,
             ),

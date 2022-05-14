@@ -2,30 +2,19 @@ import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
 class LShape {
+  const LShape({
+    this.borderShape = LBorderShape.RoundedRectangle,
+    this.borderRadius = const BorderRadius.all(Radius.circular(10)),
+    this.side = const BorderSide(
+        color: Colors.transparent, style: BorderStyle.solid, width: 0),
+  });
+
   final LBorderShape borderShape;
   final BorderRadiusGeometry borderRadius;
   final BorderSide side;
-
-  const LShape({
-    this.borderShape: LBorderShape.RoundedRectangle,
-    this.borderRadius: const BorderRadius.all(Radius.circular(10)),
-    this.side: const BorderSide(
-        color: Colors.transparent, style: BorderStyle.solid, width: 0),
-  });
 }
 
 class LShadow {
-  final Color highlightColor;
-  final double highlightDistance;
-  final double highlightBlur;
-  final double highlightSpread;
-
-  final Color shadowColor;
-  final double shadowDistance;
-  final double shadowBlur;
-  final double shadowSpread;
-  final Offset shadowOffset;
-
   const LShadow({
     this.highlightColor = LHighlightShadowColor,
     this.highlightDistance = 3,
@@ -35,19 +24,25 @@ class LShadow {
     this.shadowDistance = 3,
     this.shadowBlur = 6,
     this.shadowSpread = 1,
-    this.shadowOffset,
+    this.shadowOffset = Offset.zero,
   });
+
+  final Color highlightColor;
+  final double highlightDistance;
+  final double highlightBlur;
+  final double highlightSpread;
+
+  final Color? shadowColor;
+  final double shadowDistance;
+  final double shadowBlur;
+  final double shadowSpread;
+  final Offset? shadowOffset;
 }
 
 /// 为组件设置边角。
 ///
 /// Set corners for widget
 class LCorner {
-  final double leftTopCorner;
-  final double rightTopCorner;
-  final double rightBottomCorner;
-  final double leftBottomCorner;
-
   const LCorner({
     this.leftTopCorner = 0,
     this.rightTopCorner = 0,
@@ -60,6 +55,11 @@ class LCorner {
         rightTopCorner = radius,
         rightBottomCorner = radius,
         leftBottomCorner = radius;
+
+  final double leftTopCorner;
+  final double rightTopCorner;
+  final double rightBottomCorner;
+  final double leftBottomCorner;
 }
 
 /// 边角风格。
@@ -75,13 +75,14 @@ enum LCornerStyle {
 }
 
 typedef LGroupContorllerClickCallback = List<Color> Function(
-    Widget stateChanged, bool selected, List<Widget> widgets);
+    Widget? stateChanged, bool selected, List<Widget> widgets);
 
 class LGroupController {
-  final List<State> states = List();
-  final LGroupContorllerClickCallback groupClickCallback;
-  final bool mustBeSelected;
   LGroupController({this.mustBeSelected = false, this.groupClickCallback});
+
+  final List<State>? states = <State>[];
+  final LGroupContorllerClickCallback? groupClickCallback;
+  final bool mustBeSelected;
 }
 
 enum LGradientType {

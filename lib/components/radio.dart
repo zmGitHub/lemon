@@ -11,78 +11,6 @@ import 'package:flutter/widgets.dart';
 /// Now, our users always expect feedback from each interaction. And [LRadio] makes the construction of the view changes brought by such complex state changes extremely simple.
 // ignore: must_be_immutable
 class LRadio<T> extends StatefulWidget {
-  /// [LRadio] 所代表的的值。当 [groupValue] == [value] 时，进入选中状态。
-  ///
-  /// The value represented by [LRadio]. When [groupValue] == [value], enter the selected state.
-  final T value;
-
-  /// 单选组当前选中的值。当 [groupValue] == [value] 时，进入选中状态。
-  ///
-  /// The currently selected value of the radio group. When [groupValue] == [value], enter the selected state.
-  final T groupValue;
-
-  /// 当 [LRadio] 被变为选中时会回调
-  ///
-  /// Callback when [LRadio] is selected
-  final ValueChanged<T> onChanged;
-
-  /// 是否可用。不可用的 [LRadio] 将无法通过点击改变当前状态。
-  /// 通过 [disableNormal] 和 [disableSelected] 可以自定义不可用状态下的样式。
-  ///
-  /// Usable？ Unavailable [LRadio] will not be able to change the current state with a click.
-  /// Through [disableNormal] and [disableSelected] you can customize the style in the unavailable state.
-  final bool enable;
-
-  /// 是否可以取消选中。
-  ///
-  /// Is it possible to uncheck it.
-  final bool toggleable;
-
-  /// 宽度。
-  ///
-  /// width
-  final double width;
-
-  /// 高度。
-  ///
-  /// height.
-  final double height;
-
-  /// 焦点
-  ///
-  /// focusNode
-  final FocusNode focusNode;
-
-  /// 是否允许自动获取焦点
-  ///
-  /// Whether to allow automatic focus
-  final bool autofocus;
-
-  /// 未选中状态样式
-  ///
-  /// Unchecked state style
-  Widget normal;
-
-  /// 选中状态样式
-  ///
-  /// Selected state style
-  Widget selected;
-
-  /// 未选中状态时的不可用样式
-  ///
-  /// Unavailable style when unchecked
-  Widget disableNormal;
-
-  /// 选中状态样式不可用样式
-  ///
-  /// Unavailable styles selected
-  Widget disableSelected;
-
-  /// 鼠标进入时的样式
-  ///
-  /// The style when the mouse enters
-  Widget hover;
-
   /// 默认情况下，[LRadio] 有一套十分灵活的样式风格。
   /// 开发者无需自己配置 [normal]、[selected]、[disableNormal]、[disableSelected] 以及 [hover]。
   /// [LRadio] 提供了丰富的配置选项，以帮助开发者快速完成视图的构建。
@@ -125,13 +53,12 @@ class LRadio<T> extends StatefulWidget {
   ///
   /// [fill] 选中时，是否允许内部填充。默认为 true。
   ///   (When selected, whether to allow internal filling. The default is true.)
-  ///
   /// [corner] 边角。默认 [LRadio] 为圆形。 (Corner. The default [LRadio] is round.)
   LRadio({
-    Key key,
-    @required this.value,
-    @required this.groupValue,
-    @required this.onChanged,
+    Key? key,
+    required this.value,
+    required this.groupValue,
+    this.onChanged,
     this.width = 27,
     this.height = 27,
     this.enable = true,
@@ -141,20 +68,18 @@ class LRadio<T> extends StatefulWidget {
     Color selectedColor = const Color(0xff2593fc),
     Color normalColor = const Color(0xffd9d9d9),
     bool hasSpace = true,
-    double border,
-    Widget child,
-    Widget selectedChild,
-    Widget hoverChild,
-    Gradient gradient,
+    double? border,
+    Widget? child,
+    Widget? selectedChild,
+    Widget? hoverChild,
+    Gradient? gradient,
     Duration duration = const Duration(milliseconds: 150),
     bool fill = true,
-    LRadioCorner corner,
+    LRadioCorner? corner,
   }) : super(key: key) {
-    if (hoverChild == null) {
-      hoverChild = selectedChild;
-    }
+    hoverChild ??= selectedChild;
     border = border ?? width * 0.075;
-    BorderRadius borderRadius = corner == null
+    final BorderRadius borderRadius = corner == null
         ? BorderRadius.all(Radius.circular(width / 2.0))
         : BorderRadius.only(
       topLeft: Radius.circular(corner.leftTopCorner),
@@ -190,8 +115,8 @@ class LRadio<T> extends StatefulWidget {
     );
     selected = Stack(
       alignment: Alignment.center,
-      children: [
-        selected,
+      children: <Widget>[
+        selected!,
         selectedChild ?? Container(),
       ],
     );
@@ -220,29 +145,29 @@ class LRadio<T> extends StatefulWidget {
     );
     normal = Stack(
       alignment: Alignment.center,
-      children: [
-        normal,
+      children: <Widget>[
+        normal!,
         child ?? Container(),
       ],
     );
     if (kIsWeb == true) {
       disableSelected = Container(
-        foregroundDecoration: BoxDecoration(color: Color(0xfff1f1f1).withOpacity(0.6)),
+        foregroundDecoration: BoxDecoration(color: const Color(0xfff1f1f1).withOpacity(0.6)),
         child: selected,
       );
       disableNormal = Container(
-        foregroundDecoration: BoxDecoration(color: Color(0xfff1f1f1).withOpacity(0.6)),
+        foregroundDecoration: BoxDecoration(color: const Color(0xfff1f1f1).withOpacity(0.6)),
         child: normal,
       );
     } else {
       disableSelected = ColorFiltered(
         colorFilter: ColorFilter.mode(
-            Color(0xfff1f1f1).withOpacity(0.6), BlendMode.srcATop),
+            const Color(0xfff1f1f1).withOpacity(0.6), BlendMode.srcATop),
         child: selected,
       );
       disableNormal = ColorFiltered(
         colorFilter: ColorFilter.mode(
-            Color(0xfff1f1f1).withOpacity(0.6), BlendMode.srcATop),
+            const Color(0xfff1f1f1).withOpacity(0.6), BlendMode.srcATop),
         child: normal,
       );
     }
@@ -273,21 +198,20 @@ class LRadio<T> extends StatefulWidget {
     );
     hover = Stack(
       alignment: Alignment.center,
-      children: [
-        hover,
+      children: <Widget>[
+        hover!,
         hoverChild ?? Container(),
       ],
     );
   }
-
   /// [LRadio.custom] 构造函数允许用户自定义配置 [normal]、[selected]、[disableNormal]、[disableSelected] 以及 [hover]。
   ///
   /// The [LRadio.custom] constructor allows users to customize the configuration [normal], [selected], [disableNormal], [disableSelected] and [hover].
   LRadio.custom({
-    Key key,
-    this.value,
-    this.groupValue,
-    this.onChanged,
+    Key? key,
+    required this.value,
+    required this.groupValue,
+    required this.onChanged,
     this.normal,
     this.selected,
     this.disableNormal,
@@ -301,6 +225,79 @@ class LRadio<T> extends StatefulWidget {
     this.autofocus = false,
   }) : super(key: key);
 
+
+  /// [LRadio] 所代表的的值。当 [groupValue] == [value] 时，进入选中状态。
+  ///
+  /// The value represented by [LRadio]. When [groupValue] == [value], enter the selected state.
+  final T value;
+
+  /// 单选组当前选中的值。当 [groupValue] == [value] 时，进入选中状态。
+  ///
+  /// The currently selected value of the radio group. When [groupValue] == [value], enter the selected state.
+  final T groupValue;
+
+  /// 当 [LRadio] 被变为选中时会回调
+  ///
+  /// Callback when [LRadio] is selected
+  final ValueChanged<T>? onChanged;
+
+  /// 是否可用。不可用的 [LRadio] 将无法通过点击改变当前状态。
+  /// 通过 [disableNormal] 和 [disableSelected] 可以自定义不可用状态下的样式。
+  ///
+  /// Usable？ Unavailable [LRadio] will not be able to change the current state with a click.
+  /// Through [disableNormal] and [disableSelected] you can customize the style in the unavailable state.
+  final bool enable;
+
+  /// 是否可以取消选中。
+  ///
+  /// Is it possible to uncheck it.
+  final bool toggleable;
+
+  /// 宽度。
+  ///
+  /// width
+  final double width;
+
+  /// 高度。
+  ///
+  /// height.
+  final double height;
+
+  /// 焦点
+  ///
+  /// focusNode
+  final FocusNode? focusNode;
+
+  /// 是否允许自动获取焦点
+  ///
+  /// Whether to allow automatic focus
+  final bool? autofocus;
+
+  /// 未选中状态样式
+  ///
+  /// Unchecked state style
+  late Widget? normal;
+
+  /// 选中状态样式
+  ///
+  /// Selected state style
+  late Widget? selected;
+
+  /// 未选中状态时的不可用样式
+  ///
+  /// Unavailable style when unchecked
+  late Widget? disableNormal;
+
+  /// 选中状态样式不可用样式
+  ///
+  /// Unavailable styles selected
+  late Widget? disableSelected;
+
+  /// 鼠标进入时的样式
+  ///
+  /// The style when the mouse enters
+  Widget? hover;
+
   @override
   State<StatefulWidget> createState() {
     return _Radio<T>();
@@ -312,7 +309,7 @@ class _Radio<T> extends State<LRadio<T>> {
 
   bool get selected => widget.value == widget.groupValue;
 
-  T cacheGroupValue;
+  late T cacheGroupValue;
 
   bool hover = false;
 
@@ -324,9 +321,9 @@ class _Radio<T> extends State<LRadio<T>> {
   void _handOnTap() {
     if (widget.onChanged != null) {
       if (widget.toggleable) {
-        widget.onChanged(selected ? null : widget.value);
+        widget.onChanged!((selected ? null : widget.value) as T);
       } else {
-        widget.onChanged(widget.value);
+        widget.onChanged!(widget.value);
       }
     }
   }
@@ -347,24 +344,26 @@ class _Radio<T> extends State<LRadio<T>> {
     }
     return FocusableActionDetector(
       focusNode: widget.focusNode,
-      autofocus: widget.autofocus,
+      autofocus: widget.autofocus!,
       onShowFocusHighlight: _handleHighlightChanged,
       onShowHoverHighlight: _handleHoverChanged,
       child: child,
     );
   }
 
-  _buildChild() {
+  Widget? _buildChild() {
     if (widget.enable) {
-      Widget normal = widget.normal ?? buildDefault();
+      Widget? normal = widget.normal;
       if (hover) {
-        normal = widget.hover ?? normal;
+        normal = widget.hover;
       }
-      return selected ? widget.selected ?? buildDefault() : normal;
+      return selected ? widget.selected : normal;
     } else {
-      return selected
-          ? widget.disableSelected ?? buildDefault()
-          : widget.disableNormal ?? buildDefault();
+      if (selected) {
+        return widget.disableSelected;
+      } else {
+        return widget.disableNormal;
+      }
     }
   }
 
@@ -385,11 +384,6 @@ class _Radio<T> extends State<LRadio<T>> {
 ///
 /// Set rounded corners for [LRadio]. See the [corner] parameter in the default constructor of [LRadio] for details
 class LRadioCorner {
-  final double leftTopCorner;
-  final double rightTopCorner;
-  final double rightBottomCorner;
-  final double leftBottomCorner;
-
   const LRadioCorner({
     this.leftTopCorner = 0,
     this.rightTopCorner = 0,
@@ -402,4 +396,9 @@ class LRadioCorner {
         rightTopCorner = radius,
         rightBottomCorner = radius,
         leftBottomCorner = radius;
+
+  final double leftTopCorner;
+  final double rightTopCorner;
+  final double rightBottomCorner;
+  final double leftBottomCorner;
 }

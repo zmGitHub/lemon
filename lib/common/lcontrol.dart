@@ -6,79 +6,9 @@ import 'package:lemon/common/linnershadow.dart';
 
 
 class LControl extends StatefulWidget {
-  //组件标识，可以随意填写，用来在特殊情况下标识当前组件
-  final String componentId;
-
-  //组件宽高，不指定宽高的情况下，control的size会随内容变化而变化
-  final double width;
-  final double height;
-
-  //组件的内外边距，默认均为0
-  final EdgeInsetsGeometry margin; //组件外边距
-  final EdgeInsetsGeometry padding; //组件内边距
-
-  //组件视觉效果及外观设置
-  //LAppearance，组件外观选项，支持三种外观，Llat（扁平风格）,Neumorphism（新拟态风格）,Material（材质风格）,
-  //LLightOrientation 光源方向，分为左上、左下、右上、右下四个方向。用来控制光源照射方向，会影响高亮方向和阴影方向
-  //LSurface 组件表面的视觉效果，  Llat（平面效果）、Convex（凸面效果）、Concave（凹面效果）该效果会随着光源而变化
-  //LSurfaceForStateCallback 根据状态不同，返回不同的Surface
-  //LShape 设置组件的边框及外形 支持RoundedRectangle（圆角）,ContinuousRectangle（连续弧度）,BeveledRectangle（斜角）三种形式
-  //LShapeForStateCallback 根据状态不同，返回不同的Shape
-  final LAppearance appearance;
-  final LLightOrientation lightOrientation;
-  final LSurface surface;
-  final LSurfaceForStateCallback surfaceLorCallback;
-  final LShape shape;
-  final LShapeForStateCallback shapeForStateCallback;
-
-  //阴影设置
-  //supportDropShadow 是否支持外阴影，默认为支持
-  //supportInnerShadow 是否支持内阴影，主要用于新拟态风格，默认为支持
-  //当任何一种阴影的support属性设置为true后，整个组件内部会去掉阴影层，从而ji
-  final bool supportDropShadow;
-  final LShadow dropShadow;
-  final bool supportInnerShadow;
-  final LShadow innerShadow;
-
-  //背景色设置，color与gradient为互斥关系，设置了gradient就会覆盖color
-  //Color 设置单色背景色
-  //LColorForStateCallback 根据状态不同，返回不同的Color
-  //Gradient 设置渐变背景色
-  //LGradientForStateCallback 根据状态不同，返回不同的Gradient
-  //maskColor 蒙板颜色，主要用于风格中的一些视觉效果，大多数情况下不应该被修改
-  final Color color;
-  final LColorForStateCallback colorForCallback;
-  final Gradient gradient;
-  final LGradientForStateCallback gradientLorCallback;
-  final Color maskColor;
-
-  //组件的类型，组件支持的类型， Button,Toggle,
-  //isSelected仅在controlType == Toggle的时候有效，可以通过设置isSelected来控制默认是否为“按下”状态
-  final LType controlType;
-  final bool isSelected;
-
-  //是否禁用，默认为false，设置为yes时，会激活所有的stateLorCallback回调
-  final bool disabled;
-  //是否与用户产生交互，默认为true，设置为false后，不会发生任何变化，只是不再响应事件
-  final bool userInteractive;
-
-  //子组件
-  //LChildForStateCallback 子组件的callback方法，可以根据组件不同的状态来设置不同的子组件
-  final Widget child;
-  final LChildForStateCallback childForStateCallback;
-
-  final LGroupController controller;
-
-  final LOnTapCallback onTapCallback; //最近被点击后的callback
-  final LOnTapDownCallback onTapDownCallback;
-  final LOnTapUpCallback onTapUpCallback;
-  final LOnTapCancelCallback onTapCancelCallback;
-  final ValueChanged<bool> onHover;
-  final Color hoverColor;
-
   const LControl({
-    Key key,
-    this.componentId = "componentId", //默认的componentId
+    Key? key,
+    this.componentId = 'componentId', //默认的componentId
     this.width,
     this.height,
     this.lightOrientation = LLightOrientation.LeftTop, //默认光源为左上角
@@ -108,10 +38,79 @@ class LControl extends StatefulWidget {
     this.onTapCallback,
     this.onTapDownCallback,
     this.onTapUpCallback,
-    this.onTapCancelCallback, 
-    this.onHover, 
+    this.onTapCancelCallback,
+    this.onHover,
     this.hoverColor,
   }) : super(key: key);
+  //组件标识，可以随意填写，用来在特殊情况下标识当前组件
+  final String? componentId;
+
+  //组件宽高，不指定宽高的情况下，control的size会随内容变化而变化
+  final double? width;
+  final double? height;
+
+  //组件的内外边距，默认均为0
+  final EdgeInsetsGeometry? margin; //组件外边距
+  final EdgeInsetsGeometry? padding; //组件内边距
+
+  //组件视觉效果及外观设置
+  //LAppearance，组件外观选项，支持三种外观，Llat（扁平风格）,Neumorphism（新拟态风格）,Material（材质风格）,
+  //LLightOrientation 光源方向，分为左上、左下、右上、右下四个方向。用来控制光源照射方向，会影响高亮方向和阴影方向
+  //LSurface 组件表面的视觉效果，  Llat（平面效果）、Convex（凸面效果）、Concave（凹面效果）该效果会随着光源而变化
+  //LSurfaceForStateCallback 根据状态不同，返回不同的Surface
+  //LShape 设置组件的边框及外形 支持RoundedRectangle（圆角）,ContinuousRectangle（连续弧度）,BeveledRectangle（斜角）三种形式
+  //LShapeForStateCallback 根据状态不同，返回不同的Shape
+  final LAppearance? appearance;
+  final LLightOrientation? lightOrientation;
+  final LSurface? surface;
+  final LSurfaceForStateCallback? surfaceLorCallback;
+  final LShape? shape;
+  final LShapeForStateCallback? shapeForStateCallback;
+
+  //阴影设置
+  //supportDropShadow 是否支持外阴影，默认为支持
+  //supportInnerShadow 是否支持内阴影，主要用于新拟态风格，默认为支持
+  //当任何一种阴影的support属性设置为true后，整个组件内部会去掉阴影层，从而ji
+  final bool? supportDropShadow;
+  final LShadow? dropShadow;
+  final bool? supportInnerShadow;
+  final LShadow? innerShadow;
+
+  //背景色设置，color与gradient为互斥关系，设置了gradient就会覆盖color
+  //Color 设置单色背景色
+  //LColorForStateCallback 根据状态不同，返回不同的Color
+  //Gradient 设置渐变背景色
+  //LGradientForStateCallback 根据状态不同，返回不同的Gradient
+  //maskColor 蒙板颜色，主要用于风格中的一些视觉效果，大多数情况下不应该被修改
+  final Color? color;
+  final LColorForStateCallback? colorForCallback;
+  final Gradient? gradient;
+  final LGradientForStateCallback? gradientLorCallback;
+  final Color? maskColor;
+
+  //组件的类型，组件支持的类型， Button,Toggle,
+  //isSelected仅在controlType == Toggle的时候有效，可以通过设置isSelected来控制默认是否为“按下”状态
+  final LType? controlType;
+  final bool? isSelected;
+
+  //是否禁用，默认为false，设置为yes时，会激活所有的stateLorCallback回调
+  final bool? disabled;
+  //是否与用户产生交互，默认为true，设置为false后，不会发生任何变化，只是不再响应事件
+  final bool? userInteractive;
+
+  //子组件
+  //LChildForStateCallback 子组件的callback方法，可以根据组件不同的状态来设置不同的子组件
+  final Widget? child;
+  final LChildForStateCallback? childForStateCallback;
+
+  final LGroupController? controller;
+
+  final LOnTapCallback? onTapCallback; //最近被点击后的callback
+  final LOnTapDownCallback? onTapDownCallback;
+  final LOnTapUpCallback? onTapUpCallback;
+  final LOnTapCancelCallback? onTapCancelCallback;
+  final ValueChanged<bool>? onHover;
+  final Color? hoverColor;
 
   @override
   State<StatefulWidget> createState() {
@@ -120,26 +119,26 @@ class LControl extends StatefulWidget {
 }
 
 class LControlState extends State<LControl> {
-  LState controlState;
+  LState? controlState;
 
-  Color defaultColor;
-  Color currentColor;
+  Color? defaultColor;
+  Color? currentColor;
 
-  Gradient defaultGradient;
-  Gradient currentGradient;
+  Gradient? defaultGradient;
+  Gradient? currentGradient;
 
 
-  Widget defaultWidget;
-  Widget currentWidget;
+  Widget? defaultWidget;
+  Widget? currentWidget;
 
-  Border defaultBorder;
-  Border currentBorder;
+  Border? defaultBorder;
+  Border? currentBorder;
 
-  LShape defaultShape;
-  LShape currentShape;
+  LShape? defaultShape;
+  LShape? currentShape;
 
-  LSurface defaultSurface;
-  LSurface currentSurface;
+  LSurface? defaultSurface = LSurface.Flat;
+  LSurface? currentSurface = LSurface.Flat;
 
   bool isSelected = false;
   bool disabled = false;
@@ -150,7 +149,7 @@ class LControlState extends State<LControl> {
   LAppearance appearance = LAppearance.Llat;
   LLightOrientation lightOrientation = LLightOrientation.LeftTop;
 
-  Color maskColor;
+  late Color maskColor;
 
   bool _hovering = false;
 
@@ -177,7 +176,7 @@ class LControlState extends State<LControl> {
     defaultGradient = widget.gradient;
 
     if (widget.controller != null) {
-      widget.controller.states.add(this);
+      widget.controller!.states!.add(this);
     }
 
     isSelected = widget.isSelected ?? false;
@@ -194,14 +193,12 @@ class LControlState extends State<LControl> {
     }
 
     if (widget.colorForCallback != null) {
-      currentColor = widget.colorForCallback(widget, controlState);
+      currentColor = widget.colorForCallback!(widget, controlState!);
     }
-    currentColor = currentColor ?? defaultColor;
 
     if (widget.gradientLorCallback != null) {
-      currentGradient = widget.gradientLorCallback(widget, controlState);
+      currentGradient = widget.gradientLorCallback!(widget, controlState!);
     }
-    currentGradient = currentGradient ?? defaultGradient;
 
     // if (widget.backgroundColorsLorCallback != null) {
     //   currentBackgroundColors =
@@ -210,21 +207,19 @@ class LControlState extends State<LControl> {
     // currentBackgroundColors =
     //     _fixBackgroundColors(currentBackgroundColors, widget.backgroundColors);
 
-    defaultShape = widget.shape ?? LShape();
+    defaultShape = widget.shape ?? const LShape();
     currentShape = defaultShape;
 
-    defaultWidget = widget.child;
+    defaultWidget = widget.child!;
     if (widget.childForStateCallback != null) {
-      currentWidget = widget.childForStateCallback(widget, controlState);
+      currentWidget = widget.childForStateCallback!(widget, controlState!);
     }
     currentWidget = currentWidget ?? defaultWidget;
 
-    defaultSurface = widget.surface;
+    defaultSurface = widget.surface!;
     if (widget.surfaceLorCallback != null) {
-      currentSurface = widget.surfaceLorCallback(widget, controlState);
+      currentSurface = widget.surfaceLorCallback!(widget, controlState!);
     }
-
-    currentSurface = currentSurface ?? defaultSurface;
 
     if (controlType == LType.Toggle && isSelected) {
       controlState = LState.Highlighted;
@@ -249,12 +244,12 @@ class LControlState extends State<LControl> {
       onEnter: _handleMouseEnter,
       onExit: _handleMouseExit,
       child: GestureDetector(
-        onTapDown: (details) {
+        onTapDown: (TapDownDetails details) {
           if (controlType == LType.Button) {
             controlState = LState.Highlighted;
           } else {
             if (widget.controller != null &&
-                widget.controller.mustBeSelected &&
+                widget.controller!.mustBeSelected &&
                 isSelected) {
               return;
             }
@@ -263,12 +258,12 @@ class LControlState extends State<LControl> {
           }
           _controlGestureHandlerLorState();
           if (widget.onTapDownCallback != null) {
-            widget.onTapDownCallback(widget, isSelected);
+            widget.onTapDownCallback!(widget, isSelected);
           }
         },
-        onTapUp: (details) {
+        onTapUp: (TapUpDetails details) {
           if (widget.onTapUpCallback != null) {
-            widget.onTapUpCallback(widget, isSelected);
+            widget.onTapUpCallback!(widget, isSelected);
           }
         },
         onTapCancel: () {
@@ -280,7 +275,7 @@ class LControlState extends State<LControl> {
           }
           _controlGestureHandlerLorState();
           if (widget.onTapCancelCallback != null) {
-            widget.onTapCancelCallback(widget, isSelected);
+            widget.onTapCancelCallback!(widget, isSelected);
           }
         },
         onTap: () {
@@ -291,11 +286,11 @@ class LControlState extends State<LControl> {
             controlState =
             isSelected ? LState.Highlighted : LState.Normal;
             if (widget.controller != null &&
-                widget.controller.states.length > 0) {
-              List<Widget> all = List();
-              Widget changed;
-              for (int i = 0; i < widget.controller.states.length; i++) {
-                LControlState state = widget.controller.states[i];
+                widget.controller!.states!.isNotEmpty) {
+              final List<Widget> all = <Widget>[];
+              Widget? changed;
+              for (int i = 0; i < widget.controller!.states!.length; i++) {
+                final LControlState state = widget.controller!.states![i] as LControlState;
                 all.add(state.widget);
                 if (state != this) {
                   if (state.isSelected == false &&
@@ -306,19 +301,19 @@ class LControlState extends State<LControl> {
                   state.controlState = LState.Normal;
                   state._controlGestureHandlerLorState();
                 } else {
-                  changed = this.widget;
+                  changed = widget;
                   _controlGestureHandlerLorState();
                 }
               }
-              if (widget.controller.groupClickCallback != null) {
-                widget.controller.groupClickCallback(changed, isSelected, all);
+              if (widget.controller!.groupClickCallback != null) {
+                widget.controller!.groupClickCallback!(changed, isSelected, all);
               }
             } else {
               _controlGestureHandlerLorState();
             }
           }
           if (widget.onTapCallback != null) {
-            widget.onTapCallback(widget, isSelected);
+            widget.onTapCallback!(widget, isSelected);
           }
         },
         child: createCoreControl(),
@@ -349,16 +344,16 @@ class LControlState extends State<LControl> {
       height: widget.height,
       decoration: ShapeDecoration(
         color: (currentGradient != null) ? null : currentColor,
-        gradient: currentGradient ?? defaultGradient,
-        shape: _createShapeBorder(controlState, false),
+        gradient: currentGradient,
+        shape: _createShapeBorder(controlState!, false),
         shadows: _createDropShadowList(
             controlState, widget.dropShadow, supportDropShadow),
       ),
       foregroundDecoration: ShapeDecoration(
-        shape: _createShapeBorder(controlState, false),
+        shape: _createShapeBorder(controlState!, false),
       ),
       child: _createChildContainer(
-          controlState, widget.lightOrientation, widget.innerShadow),
+          controlState!, widget.lightOrientation!, widget.innerShadow!),
     );
   }
 
@@ -387,24 +382,21 @@ class LControlState extends State<LControl> {
           child: currentWidget,
         );
       default: //LControlAppearance.Neumorphism
-        if (innerShadow == null) {
-          innerShadow = LShadow();
-        }
         if (widget.supportInnerShadow ?? true) {
           return LInnerShadow(
             blur: innerShadow.highlightBlur,
-            color: _innerShadowColor(true, state, innerShadow),
+            color: _innerShadowColor(true, state, innerShadow)!,
             offset: _innerShadowOffset(false, state, innerShadow),
             child: LInnerShadow(
               blur: innerShadow.shadowDistance,
-              color: _innerShadowColor(false, state, innerShadow),
+              color: _innerShadowColor(false, state, innerShadow)!,
               offset: _innerShadowOffset(true, state, innerShadow),
               child: Container(
                 padding: widget.padding,
                 foregroundDecoration: _createSurfaceShape(),
                 decoration: ShapeDecoration(
                   color: (currentGradient != null) ? null : currentColor,
-                  gradient: currentGradient ?? defaultGradient,
+                  gradient: currentGradient,
                   shape: _createShapeBorder(state, true),
                   // gradient:
                   //     _createGradientBackgroundColorLorState(controlState),
@@ -419,7 +411,7 @@ class LControlState extends State<LControl> {
             foregroundDecoration: _createSurfaceShape(),
             decoration: ShapeDecoration(
               color: (currentGradient != null) ? null : currentColor,
-              gradient: currentGradient ?? defaultGradient,
+              gradient: currentGradient,
               shape: _createShapeBorder(state, true),
               // gradient: _createGradientBackgroundColorLorState(state),
             ),
@@ -438,30 +430,30 @@ class LControlState extends State<LControl> {
   void _updateState() {
     if (widget.colorForCallback != null) {
       currentColor =
-          widget.colorForCallback(widget, controlState) ?? defaultColor;
+          widget.colorForCallback!(widget, controlState!);
       if (controlState == LState.Normal && widget.hoverColor != null && _hovering) {
-          currentColor = widget.hoverColor;
+          currentColor = widget.hoverColor!;
       }
     }
     
     if (widget.gradientLorCallback != null) {
       currentGradient =
-          widget.gradientLorCallback(widget, controlState) ?? defaultGradient;
+          widget.gradientLorCallback!(widget, controlState!);
     }
     
     if (widget.childForStateCallback != null) {
       currentWidget =
-          widget.childForStateCallback(widget, controlState) ?? defaultWidget;
+          widget.childForStateCallback!(widget, controlState!);
     }
     
     if (widget.surfaceLorCallback != null) {
       currentSurface =
-          widget.surfaceLorCallback(widget, controlState) ?? defaultSurface;
+          widget.surfaceLorCallback!(widget, controlState!);
     }
     
     if (widget.shapeForStateCallback != null) {
       currentShape =
-          widget.shapeForStateCallback(widget, controlState) ?? defaultShape;
+          widget.shapeForStateCallback!(widget, controlState!);
     }
   }
 
@@ -469,34 +461,34 @@ class LControlState extends State<LControl> {
   ShapeBorder _createShapeBorder(LState state, bool justShape) {
     if (widget.shapeForStateCallback != null) {
       currentShape =
-          widget.shapeForStateCallback(widget, state) ?? defaultShape;
+          widget.shapeForStateCallback!(widget, state);
     } else {
       currentShape = defaultShape;
     }
     // justShape = false;
 
-    switch (currentShape.borderShape) {
+    switch (currentShape!.borderShape) {
       case LBorderShape.BeveledRectangle:
         return BeveledRectangleBorder(
-          borderRadius: currentShape.borderRadius,
-          side: justShape ? BorderSide.none : currentShape.side,
+          borderRadius: currentShape!.borderRadius,
+          side: justShape ? BorderSide.none : currentShape!.side,
         );
       case LBorderShape.ContinuousRectangle:
         return ContinuousRectangleBorder(
-          borderRadius: currentShape.borderRadius,
-          side: justShape ? BorderSide.none : currentShape.side,
+          borderRadius: currentShape!.borderRadius,
+          side: justShape ? BorderSide.none : currentShape!.side,
         );
       default:
         return RoundedRectangleBorder(
-          borderRadius: currentShape.borderRadius,
-          side: justShape ? BorderSide.none : currentShape.side,
+          borderRadius: currentShape!.borderRadius,
+          side: justShape ? BorderSide.none : currentShape!.side,
         );
     }
   }
 
   List<BoxShadow> _createDropShadowList(
-      LState state, LShadow dropShadow, bool canUseShadow) {
-    List<BoxShadow> shadows = List();
+      LState? state, LShadow? dropShadow, bool canUseShadow) {
+    final List<BoxShadow> shadows = <BoxShadow>[];
     switch (appearance) {
       case LAppearance.Llat: //扁平风格，忽略所有阴影效果
         break;
@@ -504,28 +496,26 @@ class LControlState extends State<LControl> {
         if (canUseShadow == false) {
           return shadows;
         }
-        if (dropShadow == null) {
-          dropShadow = LShadow();
+        dropShadow ??= const LShadow();
+        if (dropShadow != null) {
+          shadows.add(BoxShadow(
+            color: dropShadow.shadowColor??const Color(0xFF000000),
+            offset: dropShadow.shadowOffset!,
+            blurRadius: dropShadow.shadowBlur,
+            spreadRadius: dropShadow.shadowSpread,
+          ));
         }
-        shadows.add(BoxShadow(
-          color: dropShadow.shadowColor,
-          offset: dropShadow.shadowOffset ?? _dropShadowOffset(
-              appearance, lightOrientation, state, true, dropShadow),
-          blurRadius: dropShadow.shadowBlur,
-          spreadRadius: dropShadow.shadowSpread,
-        ));
+
         break;
       default: //LControlAppearance.Neumorphism，新拟态风格，处理向光和背光两个阴影
         if (canUseShadow == false) {
           return shadows;
         }
-        if (dropShadow == null) {
-          dropShadow = LShadow();
-        }
+        dropShadow ??= const LShadow();
         shadows.add(BoxShadow(
           color: dropShadow.highlightColor,
           offset: _dropShadowOffset(
-              appearance, lightOrientation, state, true, dropShadow),
+              appearance, lightOrientation, state!, true, dropShadow)!,
           blurRadius:
           (state == LState.Highlighted) ? 0 : dropShadow.highlightBlur,
           spreadRadius: (state == LState.Highlighted)
@@ -533,9 +523,9 @@ class LControlState extends State<LControl> {
               : dropShadow.highlightSpread,
         ));
         shadows.add(BoxShadow(
-          color: dropShadow.shadowColor,
+          color: dropShadow.shadowColor??const Color(0xFF000000),
           offset: _dropShadowOffset(
-              appearance, lightOrientation, state, false, dropShadow),
+              appearance, lightOrientation, state, false, dropShadow)!,
           blurRadius:
           (state == LState.Highlighted) ? 0 : dropShadow.shadowBlur,
           spreadRadius:
@@ -545,7 +535,7 @@ class LControlState extends State<LControl> {
     return shadows;
   }
 
-  Offset _dropShadowOffset(
+  Offset? _dropShadowOffset(
       LAppearance appearance, //外观风格
       LLightOrientation lightOrientation, //光源方向，在LControlAppearance.Llat时无效
       LState state, //控件状态
@@ -598,13 +588,12 @@ class LControlState extends State<LControl> {
         }
         return offset;
     }
-    return null;
   }
 
-  Color _innerShadowColor(
+  Color? _innerShadowColor(
       bool isBacklight, LState state, LShadow innerShadow) {
     if (state == LState.Normal || state == LState.Disable) {
-      return Color.fromARGB(0, 0, 0, 0);
+      return const Color.fromARGB(0, 0, 0, 0);
     } else {
       return isBacklight ? innerShadow.highlightColor : innerShadow.shadowColor;
     }
@@ -612,8 +601,8 @@ class LControlState extends State<LControl> {
 
   Offset _innerShadowOffset(
       bool isBacklight, LState state, LShadow innerShadow) {
-    double forwardlightDistance = innerShadow.highlightDistance.abs();
-    double backlightDistance = innerShadow.shadowDistance.abs();
+    final double forwardlightDistance = innerShadow.highlightDistance.abs();
+    final double backlightDistance = innerShadow.shadowDistance.abs();
     switch (lightOrientation) {
       case LLightOrientation.LeftTop:
         {
@@ -659,17 +648,14 @@ class LControlState extends State<LControl> {
           return offset;
         }
     }
-    return isBacklight
-        ? Offset(backlightDistance, backlightDistance)
-        : Offset(-forwardlightDistance, -forwardlightDistance);
   }
 
-  ShapeDecoration _createSurfaceShape() {
-    Color surfaceShadowColor = Colors.black26;
-    switch (currentSurface) {
+  ShapeDecoration? _createSurfaceShape() {
+    final Color surfaceShadowColor = Colors.black26;
+    switch (currentSurface!) {
       case LSurface.Flat:
         return ShapeDecoration(
-            shape: _createShapeBorder(controlState, true),
+            shape: _createShapeBorder(controlState!, true),
             color: (controlState == LState.Highlighted)
                 ? maskColor
                 : Colors.transparent);
@@ -677,100 +663,86 @@ class LControlState extends State<LControl> {
         switch (lightOrientation) {
           case LLightOrientation.LeftTop:
             return ShapeDecoration(
-              shape: _createShapeBorder(controlState, true),
+              shape: _createShapeBorder(controlState!, true),
               gradient: LinearGradient(
-                  colors: [Colors.transparent, surfaceShadowColor],
-                  stops: [0.4, 1.0],
+                  colors: <Color>[Colors.transparent, surfaceShadowColor],
+                  stops: const <double>[0.4, 1.0],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight),
             );
           case LLightOrientation.LeftBottom:
             return ShapeDecoration(
-              shape: _createShapeBorder(controlState, true),
+              shape: _createShapeBorder(controlState!, true),
               gradient: LinearGradient(
-                  colors: [Colors.transparent, surfaceShadowColor],
-                  stops: [0.4, 1.0],
+                  colors: <Color>[Colors.transparent, surfaceShadowColor],
+                  stops: const <double>[0.4, 1.0],
                   begin: Alignment.bottomLeft,
                   end: Alignment.topRight),
             );
           case LLightOrientation.RightTop:
             return ShapeDecoration(
-              shape: _createShapeBorder(controlState, true),
+              shape: _createShapeBorder(controlState!, true),
               gradient: LinearGradient(
-                  colors: [Colors.transparent, surfaceShadowColor],
-                  stops: [0.4, 1.0],
+                  colors: <Color>[Colors.transparent, surfaceShadowColor],
+                  stops: const <double>[0.4, 1.0],
                   begin: Alignment.topRight,
                   end: Alignment.bottomLeft),
             );
           case LLightOrientation.RightBottom:
             return ShapeDecoration(
-              shape: _createShapeBorder(controlState, true),
+              shape: _createShapeBorder(controlState!, true),
               gradient: LinearGradient(
-                  colors: [Colors.transparent, surfaceShadowColor],
-                  stops: [0.4, 1.0],
+                  colors: <Color>[Colors.transparent, surfaceShadowColor],
+                  stops: const <double>[0.4, 1.0],
                   begin: Alignment.bottomLeft,
                   end: Alignment.topRight),
             );
         }
-        return ShapeDecoration(
-          shape: _createShapeBorder(controlState, true),
-          gradient: LinearGradient(
-              colors: [Colors.transparent, surfaceShadowColor],
-              stops: [0.4, 1.0],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight),
-        );
       case LSurface.Concave:
         switch (lightOrientation) {
           case LLightOrientation.LeftTop:
             return ShapeDecoration(
-              shape: _createShapeBorder(controlState, true),
+              shape: _createShapeBorder(controlState!, true),
               gradient: LinearGradient(
-                  colors: [surfaceShadowColor, Colors.transparent],
+                  colors: <Color>[surfaceShadowColor, Colors.transparent],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight),
             );
           case LLightOrientation.LeftBottom:
             return ShapeDecoration(
-              shape: _createShapeBorder(controlState, true),
+              shape: _createShapeBorder(controlState!, true),
               gradient: LinearGradient(
-                  colors: [surfaceShadowColor, Colors.transparent],
+                  colors: <Color>[surfaceShadowColor, Colors.transparent],
                   begin: Alignment.bottomLeft,
                   end: Alignment.topRight),
             );
           case LLightOrientation.RightTop:
             return ShapeDecoration(
-              shape: _createShapeBorder(controlState, true),
+              shape: _createShapeBorder(controlState!, true),
               gradient: LinearGradient(
-                  colors: [surfaceShadowColor, Colors.transparent],
+                  colors: <Color>[surfaceShadowColor, Colors.transparent],
                   begin: Alignment.topRight,
                   end: Alignment.bottomLeft),
             );
           case LLightOrientation.RightBottom:
             return ShapeDecoration(
-              shape: _createShapeBorder(controlState, true),
+              shape: _createShapeBorder(controlState!, true),
               gradient: LinearGradient(
-                  colors: [surfaceShadowColor, Colors.transparent],
+                  colors: <Color>[surfaceShadowColor, Colors.transparent],
                   begin: Alignment.bottomLeft,
                   end: Alignment.topRight),
             );
         }
-        return ShapeDecoration(
-          shape: _createShapeBorder(controlState, true),
-          gradient: LinearGradient(
-              colors: [surfaceShadowColor, Colors.transparent],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight),
-        );
     }
   }
 
   //============> 重载部分生存周期函数，用于不同状态的变化响应
+  @override
   void didUpdateWidget(LControl oldWidget) {
     isSelected = widget.isSelected ?? false;
     controlType = widget.controlType ?? LType.Button;
     disabled = widget.disabled ?? false;
-    defaultColor = widget.color;
+    defaultColor = widget.color!;
     if (disabled) {
       controlState = LState.Disable;
       defaultColor = LDisableColor;
@@ -782,9 +754,9 @@ class LControlState extends State<LControl> {
       controlState = LState.Normal;
     }
     if(widget.colorForCallback != null){
-      defaultColor = widget.colorForCallback(widget, controlState) ?? widget.color;
+      defaultColor = widget.colorForCallback!(widget, controlState!);
     }
-    defaultColor = defaultColor ?? LPrimerColor;
+    defaultColor = defaultColor;
     appearance = widget.appearance ?? LAppearance.Llat;
     defaultWidget = widget.child;
     defaultGradient = widget.gradient;
@@ -795,10 +767,10 @@ class LControlState extends State<LControl> {
     }
     currentWidget = defaultWidget;
     if(widget.childForStateCallback != null){
-      currentWidget = widget.childForStateCallback(widget, controlState);
+      currentWidget = widget.childForStateCallback!(widget, controlState!);
     }
-    currentWidget = currentWidget ?? defaultWidget;
-    currentGradient = currentGradient ?? defaultGradient;
+    currentWidget = currentWidget;
+    currentGradient = currentGradient;
 //    currentColor = currentColor ?? defaultColor;
     currentColor = defaultColor;
     // defaultBackgroundColors = widget.backgroundColors ?? [LPrimerColor];
@@ -808,7 +780,7 @@ class LControlState extends State<LControl> {
 //      defaultColor = LDisableColor;
 //      // defaultBackgroundColors = [LDisableColor, LDisableColor];
 //    }
-    defaultShape = widget.shape ?? LShape();
+    defaultShape = widget.shape ?? const LShape();
     supportDropShadow = widget.supportDropShadow ?? true;
     maskColor = widget.maskColor ?? Colors.black12;
 //    isSelected = widget.isSelected ?? false;
@@ -826,15 +798,16 @@ class LControlState extends State<LControl> {
 //    }
 
     if (widget.surfaceLorCallback != null) {
-      currentSurface = widget.surfaceLorCallback(widget, controlState);
-      currentSurface = currentSurface ?? (widget.surface ?? LSurface.Flat);
+      currentSurface = widget.surfaceLorCallback!(widget, controlState!);
+      currentSurface = currentSurface;
     }
     super.didUpdateWidget(oldWidget);
   }
 
+  @override
   void dispose() {
     if (widget.controller != null) {
-      widget.controller.states.remove(this);
+      widget.controller!.states!.remove(this);
     }
     super.dispose();
   }

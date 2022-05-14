@@ -36,220 +36,11 @@ enum ImageAlignment {
 /// No need to master many different types of button components.
 // ignore: must_be_immutable
 class LButton extends StatefulWidget {
-  /// 控制button内部的方法
-  final LButtonController controller;
-  /// 当按下按钮时，会触发该函数。如果未设置该函数，按钮将进入不可用状态。
-  ///
-  /// When the button is pressed, the function is triggered.If this function is not set, the button will enter an unavailable state.
-  final VoidCallback onPressed;
-
-  /// 按钮上的文字。
-  ///
-  /// The text on the button.
-  final String text;
-
-  /// 按钮文本样式
-  ///
-  /// Button text style
-  final TextStyle style;
-
-  /// 禁用按钮文本样式
-  ///
-  /// Disable button text style
-  final TextStyle disableStyle;
-
-  /// 文本在组件中的相对位置。[Alignment]
-  ///
-  /// The relative position of the text in the component. [Alignment]
-  final Alignment alignment;
-
-  /// 按钮的颜色
-  ///
-  /// Button color
-  final Color color;
-
-  /// 按钮不可用颜色
-  ///
-  /// Button is not available in color
-  final Color disabledColor;
-
-  /// 鼠标进入按钮范围时，按钮的颜色。
-  ///
-  /// the color of the button when the mouse enters the button range.
-  final Color hoverColor;
-
-  /// 按压按钮时的按钮颜色。
-  ///
-  /// the button color when the button is pressed.
-  final Color highlightColor;
-
-  /// 按压按钮时的蒙层颜色。调整颜色值的 alpha，以确保背后的视图能够展示。
-  ///
-  /// The color of the mask when the button is pressed. Adjust the alpha of the color value to ensure that the view behind can be displayed.
-  final Color activeMaskColor;
-
-  /// 内间距。
-  ///
-  /// Internal spacing
-  final EdgeInsetsGeometry padding;
-
-  /// 宽度。
-  ///
-  /// width
-  final double width;
-
-  /// 高度。
-  ///
-  /// height.
-  final double height;
-
-  /// 为组件设置边角。
-  ///
-  /// Set corners for widget
-  final LCorner corner;
-
-  /// 设置边角风格，默认 [FCornerStyle.round]
-  ///
-  /// Set rounded corner style, default [FCornerStyle.round]
-  final LCornerStyle cornerStyle;
-
-  /// 设置边框颜色。
-  ///
-  /// Set the border color.
-  final Color strokeColor;
-
-  /// 设置边框宽
-  ///
-  /// Set border width
-  final double strokeWidth;
-
-  /// 设置组件阴影颜色
-  ///
-  /// Set component shadow color
-  final Color shadowColor;
-
-  /// 开启 Neumorphism 风格后的，亮部阴影颜色
-  ///
-  /// After the Neumorphism style is turned on, the bright shadow color
-  final Color highlightShadowColor;
-
-  /// 设置组件阴影偏移
-  ///
-  /// Set component shadow offset
-  final Offset shadowOffset;
-
-  /// 设置组件高斯与阴影形状卷积的标准偏差。
-  ///
-  /// Sets the standard deviation of the component's Gaussian convolution with the shadow shape.
-  final double shadowBlur;
-
-  /// 是否开启基于阴影的点击特效。
-  ///
-  /// Whether to enable shadow-based click effects.
-  final bool clickEffect;
-
-  /// 设置组件渐变色背景。会覆盖 [color] 配置
-  /// 你可选择 [LinearGradient]，[RadialGradient]，[SweepGradient] 等..
-  ///
-  /// Sets the gradient background of the component. [BackgroundColor]
-  /// You can choose [LinearGradient], [RadialGradient], [SweepGradient], etc ..
-  final Gradient gradient;
-
-  /// 设置图标
-  ///
-  /// Settings icon
-  final Widget image;
-
-  /// 设置图标与文本的间距
-  ///
-  /// Set the distance between the icon and the text
-  final double imageMargin;
-
-  /// 设置图标与文本的相对位置。详见 [ImageAlignment]
-  ///
-  /// Set the relative position of the icon and the text. See [ImageAlignment] for details
-  final ImageAlignment imageAlignment;
-
-  /// 是否启动 Loading 状态。Loading 状态会覆盖 [image] 配置
-  ///
-  /// Whether to start the loading state. Loading status will override [image] configuration
-  final bool loading;
-
-  /// loading 状态时的 Loading 小部件。会覆盖默认的 Loading 效果
-  ///
-  /// Loading widget in loading state. Will override the default Loading effect
-  final Widget loadingWidget;
-
-  /// Loading 的颜色
-  ///
-  /// Loading colors
-  final Color loadingColor;
-
-  /// Loading 的宽度
-  ///
-  /// Loading width
-  final double loadingStrokeWidth;
-
-  /// Loading 的大小
-  ///
-  /// Loading size
-  final double loadingSize;
-
-  /// 是否启用点击进入 Loading 状态的模式
-  ///
-  /// Whether to enable click to enter the loading mode
-  final bool clickLoading;
-
-  /// Loading 状态下是否隐藏文本
-  ///
-  /// Whether to hide text in the loading state
-  final bool hideTextOnLoading;
-
-  /// Loading 状态下展示的文本
-  ///
-  /// Text displayed under Loading
-  final String loadingText;
-
-  /// 表面的风格。默认 [LSurface.Flat]。详见 [LSurface]
-  ///
-  /// Surface style. Default [LSurface.Flat]. See [LSurface] for details
-  final LSurface surfaceStyle;
-
-  /// 鼠标进入/退出组件范围时会回调
-  ///
-  /// Callback when the mouse enters/exits the component range
-  final ValueChanged<bool> onHover;
-
-  /// 按下时会回调
-  ///
-  /// Callback when pressed
-  final VoidCallback onPressedDown;
-
-  /// 抬起时会回调
-  ///
-  /// Callback when lifted
-  final VoidCallback onPressedUp;
-
-  /// 按下取消时会回调
-  ///
-  /// Callback when cancel is pressed
-  final VoidCallback onPressedCancel;
-
-  /// 是否支持 Neumorphism 风格。开启该项 [highlightColor] 将会失效
-  ///
-  /// Whether to support the Neumorphism style. Open this item [highlightColor] will be invalid
-  final bool isSupportNeumorphism;
-
-  /// 当 [isSupportNeumorphism] 为 true 时有效。光源方向，分为左上、左下、右上、右下四个方向。用来控制光源照射方向，会影响高亮方向和阴影方向
-  ///
-  /// Valid when [isSupportNeumorphism] is true. The direction of the light source is divided into four directions: upper left, lower left, upper right, and lower right. Used to control the illumination direction of the light source, which will affect the highlight direction and shadow direction
-  final LLightOrientation lightOrientation;
-
-  LButton({
-    Key key,
+  const LButton({
+    Key? key,
     this.controller,
     this.onPressed,
-    this.text,
+    required this.text,
     this.color = Colors.transparent,
     this.disabledColor,
     this.hoverColor,
@@ -262,7 +53,7 @@ class LButton extends StatefulWidget {
     this.strokeColor,
     this.strokeWidth,
     this.shadowColor,
-    this.shadowOffset,
+    this.shadowOffset = Offset.zero,
     this.shadowBlur = 0.0,
     this.gradient,
     this.image,
@@ -290,6 +81,214 @@ class LButton extends StatefulWidget {
     this.loadingWidget,
     this.lightOrientation = LLightOrientation.LeftTop,
   }) : super(key: key);
+  /// 控制button内部的方法
+  final LButtonController? controller;
+  /// 当按下按钮时，会触发该函数。如果未设置该函数，按钮将进入不可用状态。
+  ///
+  /// When the button is pressed, the function is triggered.If this function is not set, the button will enter an unavailable state.
+  final VoidCallback? onPressed;
+
+  /// 按钮上的文字。
+  ///
+  /// The text on the button.
+  final String text;
+
+  /// 按钮文本样式
+  ///
+  /// Button text style
+  final TextStyle? style;
+
+  /// 禁用按钮文本样式
+  ///
+  /// Disable button text style
+  final TextStyle? disableStyle;
+
+  /// 文本在组件中的相对位置。[Alignment]
+  ///
+  /// The relative position of the text in the component. [Alignment]
+  final Alignment? alignment;
+
+  /// 按钮的颜色
+  ///
+  /// Button color
+  final Color? color;
+
+  /// 按钮不可用颜色
+  ///
+  /// Button is not available in color
+  final Color? disabledColor;
+
+  /// 鼠标进入按钮范围时，按钮的颜色。
+  ///
+  /// the color of the button when the mouse enters the button range.
+  final Color? hoverColor;
+
+  /// 按压按钮时的按钮颜色。
+  ///
+  /// the button color when the button is pressed.
+  final Color? highlightColor;
+
+  /// 按压按钮时的蒙层颜色。调整颜色值的 alpha，以确保背后的视图能够展示。
+  ///
+  /// The color of the mask when the button is pressed. Adjust the alpha of the color value to ensure that the view behind can be displayed.
+  final Color? activeMaskColor;
+
+  /// 内间距。
+  ///
+  /// Internal spacing
+  final EdgeInsetsGeometry? padding;
+
+  /// 宽度。
+  ///
+  /// width
+  final double? width;
+
+  /// 高度。
+  ///
+  /// height.
+  final double? height;
+
+  /// 为组件设置边角。
+  ///
+  /// Set corners for widget
+  final LCorner? corner;
+
+  /// 设置边角风格，默认 [FCornerStyle.round]
+  ///
+  /// Set rounded corner style, default [FCornerStyle.round]
+  final LCornerStyle? cornerStyle;
+
+  /// 设置边框颜色。
+  ///
+  /// Set the border color.
+  final Color? strokeColor;
+
+  /// 设置边框宽
+  ///
+  /// Set border width
+  final double? strokeWidth;
+
+  /// 设置组件阴影颜色
+  ///
+  /// Set component shadow color
+  final Color? shadowColor;
+
+  /// 开启 Neumorphism 风格后的，亮部阴影颜色
+  ///
+  /// After the Neumorphism style is turned on, the bright shadow color
+  final Color? highlightShadowColor;
+
+  /// 设置组件阴影偏移
+  ///
+  /// Set component shadow offset
+  final Offset? shadowOffset;
+
+  /// 设置组件高斯与阴影形状卷积的标准偏差。
+  ///
+  /// Sets the standard deviation of the component's Gaussian convolution with the shadow shape.
+  final double? shadowBlur;
+
+  /// 是否开启基于阴影的点击特效。
+  ///
+  /// Whether to enable shadow-based click effects.
+  final bool? clickEffect;
+
+  /// 设置组件渐变色背景。会覆盖 [color] 配置
+  /// 你可选择 [LinearGradient]，[RadialGradient]，[SweepGradient] 等..
+  ///
+  /// Sets the gradient background of the component. [BackgroundColor]
+  /// You can choose [LinearGradient], [RadialGradient], [SweepGradient], etc ..
+  final Gradient? gradient;
+
+  /// 设置图标
+  ///
+  /// Settings icon
+  final Widget? image;
+
+  /// 设置图标与文本的间距
+  ///
+  /// Set the distance between the icon and the text
+  final double? imageMargin;
+
+  /// 设置图标与文本的相对位置。详见 [ImageAlignment]
+  ///
+  /// Set the relative position of the icon and the text. See [ImageAlignment] for details
+  final ImageAlignment? imageAlignment;
+
+  /// 是否启动 Loading 状态。Loading 状态会覆盖 [image] 配置
+  ///
+  /// Whether to start the loading state. Loading status will override [image] configuration
+  final bool? loading;
+
+  /// loading 状态时的 Loading 小部件。会覆盖默认的 Loading 效果
+  ///
+  /// Loading widget in loading state. Will override the default Loading effect
+  final Widget? loadingWidget;
+
+  /// Loading 的颜色
+  ///
+  /// Loading colors
+  final Color? loadingColor;
+
+  /// Loading 的宽度
+  ///
+  /// Loading width
+  final double? loadingStrokeWidth;
+
+  /// Loading 的大小
+  ///
+  /// Loading size
+  final double? loadingSize;
+
+  /// 是否启用点击进入 Loading 状态的模式
+  ///
+  /// Whether to enable click to enter the loading mode
+  final bool? clickLoading;
+
+  /// Loading 状态下是否隐藏文本
+  ///
+  /// Whether to hide text in the loading state
+  final bool? hideTextOnLoading;
+
+  /// Loading 状态下展示的文本
+  ///
+  /// Text displayed under Loading
+  final String? loadingText;
+
+  /// 表面的风格。默认 [LSurface.Flat]。详见 [LSurface]
+  ///
+  /// Surface style. Default [LSurface.Flat]. See [LSurface] for details
+  final LSurface? surfaceStyle;
+
+  /// 鼠标进入/退出组件范围时会回调
+  ///
+  /// Callback when the mouse enters/exits the component range
+  final ValueChanged<bool>? onHover;
+
+  /// 按下时会回调
+  ///
+  /// Callback when pressed
+  final VoidCallback? onPressedDown;
+
+  /// 抬起时会回调
+  ///
+  /// Callback when lifted
+  final VoidCallback? onPressedUp;
+
+  /// 按下取消时会回调
+  ///
+  /// Callback when cancel is pressed
+  final VoidCallback? onPressedCancel;
+
+  /// 是否支持 Neumorphism 风格。开启该项 [highlightColor] 将会失效
+  ///
+  /// Whether to support the Neumorphism style. Open this item [highlightColor] will be invalid
+  final bool? isSupportNeumorphism;
+
+  /// 当 [isSupportNeumorphism] 为 true 时有效。光源方向，分为左上、左下、右上、右下四个方向。用来控制光源照射方向，会影响高亮方向和阴影方向
+  ///
+  /// Valid when [isSupportNeumorphism] is true. The direction of the light source is divided into four directions: upper left, lower left, upper right, and lower right. Used to control the illumination direction of the light source, which will affect the highlight direction and shadow direction
+  final LLightOrientation? lightOrientation;
 
   @override
   State<StatefulWidget> createState() {
@@ -298,13 +297,13 @@ class LButton extends StatefulWidget {
 }
 
 class _LButton extends State<LButton> with SingleTickerProviderStateMixin {
-  double shadowBlur;
+  late double shadowBlur;
 
-  Color shadowColor;
+  Color? shadowColor = LDarkShadowColor;
 
-  Tween shadowTween;
+  late Tween<double> shadowTween;
 
-  AnimationController animationController;
+  late AnimationController animationController;
 
   bool get enabled => widget.onPressed != null && !loading;
 
@@ -315,10 +314,10 @@ class _LButton extends State<LButton> with SingleTickerProviderStateMixin {
     super.initState();
     updateParam();
     animationController = AnimationController(
-      duration: Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 300),
       vsync: this,
     );
-    shadowTween = Tween(begin: 0, end: widget.shadowBlur);
+    shadowTween = Tween<double>(begin: 0, end: widget.shadowBlur);
     animationController.addListener(() {
       setState(() {
         shadowBlur = shadowTween.evaluate(animationController);
@@ -340,10 +339,10 @@ class _LButton extends State<LButton> with SingleTickerProviderStateMixin {
   }
 
   void _onParamsChange() {
-    Map<String, dynamic> values = widget.controller?.value??{};
-    if (values["loadingConfig"] != null) {
-      ButtonLoadingValue loadingValue = (values["loadingConfig"] as ButtonLoadingValue);
-      // TODO: 支持动态渲染loading的其他参数
+    final Map<String, dynamic> values = widget.controller?.value??<String, dynamic>{};
+    if (values['loadingConfig'] != null) {
+      final ButtonLoadingValue loadingValue = values['loadingConfig'] as ButtonLoadingValue;
+      // TODO(turbo): 支持动态渲染loading的其他参数
       // loadingWidget = loadingValue.loadingWidget;
       // this.loading = false,
       // this.loadingWidget,
@@ -361,52 +360,61 @@ class _LButton extends State<LButton> with SingleTickerProviderStateMixin {
     }
   }
 
-  updateParam() {
-    shadowBlur = widget.shadowBlur;
-    shadowColor = widget.shadowColor;
-    loading = widget.loading;
+  void updateParam() {
+    if (widget.shadowBlur != null) {
+      shadowBlur = widget.shadowBlur!;
+    }
+    if (widget.shadowColor != null) {
+      shadowColor = widget.shadowColor!;
+    }
+    if (widget.loading != null) {
+      loading = widget.loading!;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    double disableOpacity = 0.58;
+    const double disableOpacity = 0.58;
 
     /// Handle the relationship between [image] and [loading]
-    Widget image = loading
-        ? widget.loadingWidget ??
+    final Widget? image;
+    if (loading) {
+      image = widget.loadingWidget ??
         SizedBox(
           width: widget.loadingSize,
           height: widget.loadingSize,
           child: CircularProgressIndicator(
-            strokeWidth: widget.loadingStrokeWidth,
+            strokeWidth: widget.loadingStrokeWidth!,
             valueColor: AlwaysStoppedAnimation<Color>(widget.loadingColor ==
                 null
                 ? Theme.of(context).accentColor.withOpacity(disableOpacity)
-                : widget.loadingColor.withOpacity(disableOpacity)),
+                : widget.loadingColor!.withOpacity(disableOpacity)),
           ),
-        )
-        : widget.image;
+        );
+    } else {
+      image = widget.image;
+    }
 
     /// Corner
-    BorderRadius borderRadius = widget.corner == null
-        ? BorderRadius.all(Radius.circular(0))
+    final BorderRadius borderRadius = widget.corner == null
+        ? const BorderRadius.all(Radius.circular(0))
         : BorderRadius.only(
-      topLeft: Radius.circular(widget.corner.leftTopCorner),
-      topRight: Radius.circular(widget.corner.rightTopCorner),
-      bottomRight: Radius.circular(widget.corner.rightBottomCorner),
-      bottomLeft: Radius.circular(widget.corner.leftBottomCorner),
+      topLeft: Radius.circular(widget.corner!.leftTopCorner),
+      topRight: Radius.circular(widget.corner!.rightTopCorner),
+      bottomRight: Radius.circular(widget.corner!.rightBottomCorner),
+      bottomLeft: Radius.circular(widget.corner!.leftBottomCorner),
     );
 
     /// side
-    Color sideColor = widget.strokeColor ?? Colors.transparent;
-    BorderSide borderSide = BorderSide(
+    final Color sideColor = widget.strokeColor ?? Colors.transparent;
+    final BorderSide borderSide = BorderSide(
       width: widget.strokeWidth ?? 0,
       color: sideColor,
       style: BorderStyle.solid,
     );
 
     /// shape
-    LShape shape = LShape(
+    final LShape shape = LShape(
       borderShape: widget.cornerStyle == LCornerStyle.round
           ? LBorderShape.RoundedRectangle
           : LBorderShape.BeveledRectangle,
@@ -415,14 +423,13 @@ class _LButton extends State<LButton> with SingleTickerProviderStateMixin {
     );
 
     /// Handle the relationship between loading text and regular text
-    String loadingText =
-    widget.loadingText == null ? widget.text : widget.loadingText;
-    String text = loading ? loadingText : widget.text;
-    Widget layerText = _buildTextLayer(text);
-    Widget layerRow = _buildRowLayer(text, image, layerText);
+    final String loadingText = widget.loadingText ?? widget.text;
+    final String text = loading ? loadingText : widget.text;
+    final Widget layerText = _buildTextLayer(text);
+    final Widget layerRow = _buildRowLayer(text, image, layerText);
 
     /////////////////
-    Widget layerContainer = LControl(
+    final Widget layerContainer = LControl(
       lightOrientation: widget.lightOrientation,
       width: widget.width,
       height: widget.height,
@@ -430,15 +437,14 @@ class _LButton extends State<LButton> with SingleTickerProviderStateMixin {
       gradient: widget.gradient,
       shape: shape,
       surface: widget.surfaceStyle,
-      supportDropShadow: (shadowColor != null && shadowBlur != 0.0) ||
-          widget.isSupportNeumorphism,
+      supportDropShadow: (shadowColor != null && shadowBlur != 0.0) || widget.isSupportNeumorphism!,
       dropShadow: LShadow(
-        highlightColor: widget.isSupportNeumorphism
+        highlightColor: widget.isSupportNeumorphism!
             ? widget.highlightShadowColor ?? Colors.white.withOpacity(0.83)
             : Colors.transparent,
-        highlightBlur: widget.isSupportNeumorphism ? _shadowBlur : 0.0,
+        highlightBlur: widget.isSupportNeumorphism! ? _shadowBlur : 0.0,
         highlightDistance: shadowDistance,
-        shadowColor: shadowColor ?? Color(0xffd1d9e6),
+        shadowColor: shadowColor,
         shadowBlur: _shadowBlur,
         shadowDistance: shadowDistance,
         shadowOffset: widget.shadowOffset,
@@ -449,11 +455,11 @@ class _LButton extends State<LButton> with SingleTickerProviderStateMixin {
         widget.highlightShadowColor ?? Colors.white.withOpacity(0.83),
         highlightBlur: _shadowBlur,
         highlightDistance: shadowDistance,
-        shadowColor: shadowColor ?? Color(0xffd1d9e6),
+        shadowColor: shadowColor,
         shadowBlur: _shadowBlur,
         shadowDistance: shadowDistance,
       ),
-      appearance: widget.isSupportNeumorphism
+      appearance: widget.isSupportNeumorphism!
           ? LAppearance.Neumorphism
           : LAppearance.Material,
       onTapCallback: (_, __) {
@@ -469,22 +475,24 @@ class _LButton extends State<LButton> with SingleTickerProviderStateMixin {
         widget.onPressedCancel?.call();
       },
       maskColor: widget.activeMaskColor,
-      colorForCallback: (sender, state) {
+      colorForCallback: (Widget sender, LState state) {
         if (state == LState.Highlighted) {
-          return widget.isSupportNeumorphism
-              ? widget.color
-              : widget.highlightColor;
+          if (widget.isSupportNeumorphism!) {
+            return widget.color!;
+          } else {
+            return widget.highlightColor!;
+          }
         } else if (state == LState.Disable) {
           return widget.disabledColor ??
               (widget.color ?? LDisableColor).withOpacity(disableOpacity);
         }
-        return widget.color;
+        return widget.color!;
       },
       disabled: !enabled,
       hoverColor: widget.hoverColor,
       onHover: widget.onHover != null
-          ? (v) {
-        widget.onHover(v);
+          ? (bool v) {
+        widget.onHover!(v);
       }
           : null,
       child: Container(
@@ -493,7 +501,7 @@ class _LButton extends State<LButton> with SingleTickerProviderStateMixin {
       ),
     );
     /////////////////
-    Widget result = Semantics(
+    final Widget result = Semantics(
       button: true,
       enabled: enabled,
       child: layerContainer,
@@ -503,7 +511,7 @@ class _LButton extends State<LButton> with SingleTickerProviderStateMixin {
 
   double get _shadowBlur {
     if ((shadowBlur == null || shadowBlur == 0.0) &&
-        widget.isSupportNeumorphism) {
+        widget.isSupportNeumorphism!) {
       return 6.0;
     } else {
       return shadowBlur;
@@ -511,7 +519,7 @@ class _LButton extends State<LButton> with SingleTickerProviderStateMixin {
   }
 
   double get shadowDistance {
-    if (widget.isSupportNeumorphism) {
+    if (widget.isSupportNeumorphism!) {
       return widget.shadowOffset?.dy ?? 3.0;
     } else {
       return widget.shadowOffset?.dy ?? 0.0;
@@ -520,18 +528,20 @@ class _LButton extends State<LButton> with SingleTickerProviderStateMixin {
 
   Text _buildTextLayer(String text) {
     return Text(
-      text ?? "",
+      text,
       style: enabled ? widget.style : widget.disableStyle ?? widget.style,
     );
   }
 
-  Widget _buildRowLayer(String text, Widget image, Widget layerText) {
-    if (image == null) return layerText;
-    var showLoading = (loading && widget.hideTextOnLoading);
-    if (showLoading || text == null || text == "") {
+  Widget _buildRowLayer(String text, Widget? image, Widget layerText) {
+    if (image == null) {
+      return layerText;
+    }
+    final bool showLoading = loading && widget.hideTextOnLoading!;
+    if (showLoading || text == null || text == '') {
       return image;
     } else {
-      switch (widget.imageAlignment) {
+      switch (widget.imageAlignment!) {
         case ImageAlignment.left:
           return Row(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -578,29 +588,28 @@ class _LButton extends State<LButton> with SingleTickerProviderStateMixin {
           );
       }
     }
-    return layerText;
   }
 
-  onPressed() {
+  void onPressed() {
     widget.onPressed?.call();
-    if (widget.clickLoading && !loading) {
+    if (widget.clickLoading! && !loading) {
       loading = true;
       setState(() {});
-    } else if (widget.clickEffect) {
+    } else if (widget.clickEffect!) {
       pressOutEffect();
     }
   }
 
-  pressOutEffect() {
-    shadowBlur = (shadowBlur ?? 0) + 6;
+  void pressOutEffect() {
+    shadowBlur = shadowBlur + 6;
     shadowColor = widget.shadowColor;
     if (shadowColor == null) {
-      if (widget.isSupportNeumorphism) {
-        shadowColor = Color(0xffd1d9e6);
+      if (widget.isSupportNeumorphism!) {
+        shadowColor = const Color(0xffd1d9e6);
       } else if (widget.strokeColor != null) {
-        shadowColor = widget.strokeColor.withOpacity(0.58);
+        shadowColor = widget.strokeColor!.withOpacity(0.58);
       } else {
-        shadowColor = widget.color.withOpacity(0.58);
+        shadowColor = widget.color!.withOpacity(0.58);
       }
     }
     shadowTween
@@ -614,23 +623,7 @@ class _LButton extends State<LButton> with SingleTickerProviderStateMixin {
 
 @immutable
 class ButtonLoadingValue {
-  /// 是否启动 Loading 状态。Loading 状态会覆盖 [image] 配置
-  final bool loading;
-  final Widget loadingWidget;
-  /// Loading 的颜色
-  final Color loadingColor;
-  /// Loading 的宽度
-  final double loadingStrokeWidth;
-  /// Loading 的大小
-  final double loadingSize;
-  /// 是否启用点击进入 Loading 状态的模式
-  final bool clickLoading;
-  /// Loading 状态下是否隐藏文本
-  final bool hideTextOnLoading;
-  /// Loading 状态下展示的文本
-  final String loadingText;
-
-  ButtonLoadingValue({
+  const ButtonLoadingValue({
     this.loading = false,
     this.loadingWidget,
     this.loadingColor,
@@ -640,17 +633,34 @@ class ButtonLoadingValue {
     this.hideTextOnLoading = false,
     this.loadingText,
   });
+  /// 是否启动 Loading 状态。Loading 状态会覆盖 [image] 配置
+  final bool loading;
+  final Widget? loadingWidget;
+  /// Loading 的颜色
+  final Color? loadingColor;
+  /// Loading 的宽度
+  final double? loadingStrokeWidth;
+  /// Loading 的大小
+  final double? loadingSize;
+  /// 是否启用点击进入 Loading 状态的模式
+  final bool clickLoading;
+  /// Loading 状态下是否隐藏文本
+  final bool hideTextOnLoading;
+  /// Loading 状态下展示的文本
+  final String? loadingText;
+
+
 
   ButtonLoadingValue update(Map<String, dynamic> encoded) {
     return ButtonLoadingValue(
-      loading: encoded["loading"]??this.loading,
-      loadingWidget: encoded["loadingWidget"]??this.loadingWidget,
-      loadingColor: encoded["loadingColor"]??this.loadingColor,
-      loadingStrokeWidth: encoded["loadingStrokeWidth"]??this.loadingStrokeWidth,
-      loadingSize: encoded["loadingSize"]??this.loadingSize,
-      clickLoading: encoded["clickLoading"]??this.clickLoading,
-      hideTextOnLoading: encoded["hideTextOnLoading"]??this.hideTextOnLoading,
-      loadingText: encoded["loading"]??this.loadingText,
+      loading: (encoded['loading']??loading) as bool,
+      loadingWidget: (encoded['loadingWidget']??loadingWidget) as Widget,
+      loadingColor: (encoded['loadingColor']??loadingColor) as Color,
+      loadingStrokeWidth: (encoded['loadingStrokeWidth']??loadingStrokeWidth) as double,
+      loadingSize: (encoded['loadingSize']??loadingSize) as double,
+      clickLoading: (encoded['clickLoading']??clickLoading) as bool,
+      hideTextOnLoading: (encoded['hideTextOnLoading']??hideTextOnLoading) as bool,
+      loadingText: (encoded['loading']??loadingText) as String,
     );
   }
 
@@ -659,13 +669,13 @@ class ButtonLoadingValue {
 
 /// LButton controller 控制当前button的各种状态
 class LButtonController extends ValueNotifier<Map<String, dynamic>> {
-  LButtonController({ Map<String, dynamic> value }) : super(value??{});
+  LButtonController({ required Map<String, dynamic> value }) : super(value);
 
   /// 控制loading显示和隐藏
   /// loading true显示 false隐藏
   void setLoading(ButtonLoadingValue buttonLoadingValue) {
-    value = {
-      "loadingConfig": buttonLoadingValue,
+    value = <String, dynamic>{
+      'loadingConfig': buttonLoadingValue,
     };
   }
 

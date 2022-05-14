@@ -6,16 +6,17 @@ import 'package:lemon/common/ldefine.dart';
 
 
 class LInnerShadow extends SingleChildRenderObjectWidget {
-  final double blur;
-  final Color color;
-  final Offset offset;
-  LInnerShadow({
-    Key key,
+  const LInnerShadow({
+    Key? key,
     this.blur = 10,
     this.color = LInnerShadowColor,
     this.offset = LInnerShadowOffset,
-    Widget child,
+    Widget? child,
   }) : super(key: key, child: child);
+
+  final double? blur;
+  final Color? color;
+  final Offset? offset;
 
   @override
   RenderObject createRenderObject(BuildContext context) {
@@ -28,22 +29,24 @@ class LInnerShadow extends SingleChildRenderObjectWidget {
   void updateRenderObject(
       BuildContext context, _ZenUIRenderInnerShadow renderObject) {
     renderObject
-      ..color = color
-      ..blur = blur
-      ..dx = offset.dx
-      ..dy = offset.dy;
+      ..color = color!
+      ..blur = blur!
+      ..dx = offset!.dx
+      ..dy = offset!.dy;
   }
 }
 
 class _ZenUIRenderInnerShadow extends RenderProxyBox {
-  double blur;
-  Color color;
-  double dx;
-  double dy;
+  late double blur;
+  late Color color;
+  late double dx;
+  late double dy;
 
   @override
   void paint(PaintingContext context, Offset offset) {
-    if (child == null) return;
+    if (child == null) {
+      return;
+    }
     final Rect rectOuter = offset & size;
     final Rect rectInner = Rect.fromLTWH(
       offset.dx,
@@ -52,8 +55,8 @@ class _ZenUIRenderInnerShadow extends RenderProxyBox {
       size.height,
     );
     final Canvas canvas = context.canvas..saveLayer(rectOuter, Paint());
-    context.paintChild(child, offset);
-    Paint shadowPaint = Paint()
+    context.paintChild(child!, offset);
+    final Paint shadowPaint = Paint()
       ..blendMode = BlendMode.srcATop
       ..imageFilter = ImageFilter.blur(sigmaX: blur, sigmaY: blur)
       ..colorFilter = ColorFilter.mode(color, BlendMode.srcOut);
@@ -61,7 +64,7 @@ class _ZenUIRenderInnerShadow extends RenderProxyBox {
       ..saveLayer(rectOuter, shadowPaint)
       ..saveLayer(rectInner, Paint())
       ..translate(dx, dy);
-    context.paintChild(child, offset);
+    context.paintChild(child!, offset);
     context.canvas..restore()..restore()..restore();
   }
 }

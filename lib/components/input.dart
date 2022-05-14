@@ -4,30 +4,9 @@ import 'package:lemon/styles/colors.dart';
 import 'package:lemon/styles/gaps.dart';
 
 class LInput extends StatelessWidget {
-  final Widget left;
-  final Widget right;
-  final double inputHeight;
-  final TextStyle inputStyle;
-  final Color backgroundColor;
-  final EdgeInsets backgroundPadding;
-  final Decoration backgroundDecoration;
-  final FocusNode focusNode;
-  final ValueChanged<String> onChanged;
-  final VoidCallback onEditingComplete;
-  final bool autofocus;
-  final ValueChanged<String> onSubmitted;
-  final List<TextInputFormatter> inputFormatters;
-  final TextAlign textAlign;
-  final InputDecoration inputDecoration;
-  final TextInputType keyboardType;
-  final TextEditingController controller;
-  final bool readOnly;
-  final bool bordered;
-  final bool obscureText;
-  final int maxLength;
 
   const LInput({
-    Key key,
+    Key? key,
     this.backgroundPadding = const EdgeInsets.symmetric(
       horizontal: 15.0,
       vertical: 0.0,
@@ -45,6 +24,7 @@ class LInput extends StatelessWidget {
     this.textAlign = TextAlign.start,
     this.inputDecoration,
     this.keyboardType,
+    this.textInputAction,
     this.controller,
     this.bordered = true,
     this.readOnly = false,
@@ -56,7 +36,7 @@ class LInput extends StatelessWidget {
 
   factory LInput.label({
     final Key key,
-    final String title,
+    required final String title,
     final TextStyle titleStyle,
     final TextStyle inputStyle,
     final double titleWidth,
@@ -65,31 +45,55 @@ class LInput extends StatelessWidget {
     final Widget left,
     final Widget right,
     final double inputHeight,
-    final FocusNode focusNode,
+    final FocusNode? focusNode,
     final Color backgroundColor,
     final EdgeInsets backgroundPadding,
     final BoxDecoration backgroundDecoration,
     final ValueChanged<String> onChanged,
-    final VoidCallback onEditingComplete,
+    final VoidCallback? onEditingComplete,
     final bool autofocus,
     final ValueChanged<String> onSubmitted,
     final List<TextInputFormatter> inputFormatters,
     final TextAlign textAlign,
     final InputDecoration inputDecoration,
     final TextInputType keyboardType,
+    final TextInputAction? textInputAction,
     final TextEditingController controller,
     final bool readOnly,
     final bool obscureText,
-    final int maxLength,
+    final int? maxLength,
     final bool bordered,
-}) = _LabelInput;
+  }) = _LabelInput;
+
+  final Widget? left;
+  final Widget? right;
+  final double? inputHeight;
+  final TextStyle? inputStyle;
+  final Color? backgroundColor;
+  final EdgeInsets? backgroundPadding;
+  final Decoration? backgroundDecoration;
+  final FocusNode? focusNode;
+  final ValueChanged<String>? onChanged;
+  final VoidCallback? onEditingComplete;
+  final TextInputAction? textInputAction;
+  final bool? autofocus;
+  final ValueChanged<String>? onSubmitted;
+  final List<TextInputFormatter>? inputFormatters;
+  final TextAlign? textAlign;
+  final InputDecoration? inputDecoration;
+  final TextInputType? keyboardType;
+  final TextEditingController? controller;
+  final bool? readOnly;
+  final bool? bordered;
+  final bool? obscureText;
+  final int? maxLength;
 
   @override
   Widget build(BuildContext context) {
     Widget body = Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        left,
+        left!,
         Expanded(
           flex: 1,
           child: SizedBox(
@@ -97,19 +101,20 @@ class LInput extends StatelessWidget {
             child: Align(
               alignment: Alignment.center,
               child: TextField(
-                textAlign: textAlign,
+                textAlign: textAlign!,
                 keyboardType: keyboardType,
-                obscureText: obscureText,
+                obscureText: obscureText!,
                 controller: controller,
                 inputFormatters: inputFormatters,
                 onChanged: onChanged,
-                readOnly: readOnly,
+                readOnly: readOnly!,
                 maxLength: maxLength,
                 decoration: inputDecoration,
                 focusNode: focusNode,
-                autofocus: autofocus,
+                autofocus: autofocus!,
                 onEditingComplete: onEditingComplete,
-                style: TextStyle(
+                textInputAction: textInputAction,
+                style: const TextStyle(
                   fontSize: 14.0,
                   color: Colours.black,
                 ).merge(inputStyle),
@@ -117,11 +122,11 @@ class LInput extends StatelessWidget {
             ),
           ),
         ),
-        right,
+        right!,
       ],
     );
     // 是否有底部标签
-    if (bordered) {
+    if (bordered!) {
       body = DecoratedBox(
         decoration: BoxDecoration(
           border: Border(
@@ -137,7 +142,7 @@ class LInput extends StatelessWidget {
     }
     if (backgroundPadding != EdgeInsets.zero) {
       body = Padding(
-        padding: backgroundPadding,
+        padding: backgroundPadding!,
         child: body,
       );
     }
@@ -149,7 +154,7 @@ class LInput extends StatelessWidget {
       );
     } else {
       body = DecoratedBox(
-        decoration: backgroundDecoration,
+        decoration: backgroundDecoration!,
         child: body,
       );
     }
@@ -159,38 +164,38 @@ class LInput extends StatelessWidget {
 
 class _LabelInput extends LInput {
   _LabelInput({
-    final Key key,
-    final String title,
+    final Key? key,
+    required final String title,
     final double inputHeight = 44,
-    final TextStyle titleStyle,
+    final TextStyle? titleStyle,
     final double titleWidth = 80.0,
-    final String hintText = "",
-    final TextStyle hintStyle,
-    final TextStyle inputStyle,
-    final Widget left,
+    final String hintText = '',
+    final TextStyle? hintStyle,
+    final TextStyle? inputStyle,
+    final Widget? left,
     final Widget right = LGaps.empty,
     final Color backgroundColor = Colors.white,
     final EdgeInsets backgroundPadding = const EdgeInsets.symmetric(
       horizontal: 15.0,
       vertical: 0.0,
     ),
-    final Decoration backgroundDecoration,
-    final BorderRadiusGeometry borderRadius,
-    final ValueChanged<String> onChanged,
-    final VoidCallback onEditingComplete,
-    final ValueChanged<String> onSubmitted,
-    final List<TextInputFormatter> inputFormatters,
+    final Decoration? backgroundDecoration,
+    final ValueChanged<String>? onChanged,
+    final VoidCallback? onEditingComplete,
+    final ValueChanged<String>? onSubmitted,
+    final List<TextInputFormatter>? inputFormatters,
     final TextAlign textAlign = TextAlign.start,
-    final InputDecoration inputDecoration,
-    final TextInputType keyboardType,
-    final TextEditingController controller,
-    final FocusNode focusNode,
+    final InputDecoration? inputDecoration,
+    final TextInputType? keyboardType,
+    final TextInputAction? textInputAction,
+    final TextEditingController? controller,
+    final FocusNode? focusNode,
     final bool autofocus = false,
     final bool obscureText = false,
     final bool readOnly = false,
     final bool bordered = true,
-    final int maxLength,
-  }) : assert(title != null, "title required"),super(
+    final int? maxLength,
+  }) : super(
           key: key,
           inputHeight: inputHeight,
           inputStyle: inputStyle,
@@ -201,6 +206,7 @@ class _LabelInput extends LInput {
           inputFormatters: inputFormatters,
           textAlign: textAlign,
           keyboardType: keyboardType,
+          textInputAction: textInputAction,
           autofocus: autofocus,
           readOnly: readOnly,
           maxLength: maxLength,
@@ -211,10 +217,10 @@ class _LabelInput extends LInput {
           backgroundColor: backgroundColor,
           focusNode: focusNode,
           inputDecoration: InputDecoration(
-            counterText: "",
+            counterText: '',
             hintText: hintText,
             isDense: true,
-            hintStyle: TextStyle(
+            hintStyle: const TextStyle(
               fontSize: 14.0,
               color: Colours.gray5,
             ).merge(hintStyle),
@@ -232,7 +238,6 @@ class _LabelInput extends LInput {
             errorText: inputDecoration?.errorText,
             errorStyle: inputDecoration?.errorStyle,
             errorMaxLines: inputDecoration?.errorMaxLines,
-            hasFloatingPlaceholder: inputDecoration?.hasFloatingPlaceholder,
             floatingLabelBehavior: inputDecoration?.floatingLabelBehavior,
             isCollapsed: inputDecoration?.isCollapsed,
             isDense: inputDecoration?.isDense,
@@ -267,8 +272,8 @@ class _LabelInput extends LInput {
           left: left??SizedBox(
             width: titleWidth,
             child: Text(
-              title??"",
-              style: TextStyle(
+              title,
+              style: const TextStyle(
                 fontSize: 14.0,
                 color: Colours.gray8,
               ).merge(titleStyle),

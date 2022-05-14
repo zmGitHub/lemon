@@ -3,21 +3,23 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 class LAvatar extends StatelessWidget {
-  final double width;
-  final double height;
-  final Decoration decoration;
-  final Widget child;
-  /// Default is width / 2, if width is null, radius = 1.
-  final double radius;
 
   const LAvatar({
-    Key key,
+    Key? key,
     this.width = 42,
     this.height = 42,
-    this.child,
+    required this.child,
     this.radius,
     this.decoration,
   }) : super(key: key);
+
+  final double width;
+  final double height;
+  final Decoration? decoration;
+  final Widget child;
+  /// Default is width / 2, if width is null, radius = 1.
+  final double? radius;
+
 
   @override
   Widget build(BuildContext context) {
