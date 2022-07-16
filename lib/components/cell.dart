@@ -5,6 +5,7 @@ import 'package:lemon/styles/gaps.dart';
 class LCell extends StatelessWidget {
   const LCell({
     Key? key,
+    this.height,
     this.left = LGaps.empty,
     this.right = LGaps.empty,
     this.body = LGaps.empty,
@@ -20,6 +21,7 @@ class LCell extends StatelessWidget {
 
   factory LCell.primary({
     Key key,
+    double height,
     Color backgroundColor,
     Widget prefixLeft,
     Widget prefixRight,
@@ -42,6 +44,7 @@ class LCell extends StatelessWidget {
     CrossAxisAlignment crossAxisAlignment,
   }) = _CellPrimary;
 
+  final double? height;
   final Widget? left;
   final Widget? body;
   final Widget? right;
@@ -81,6 +84,7 @@ class LCell extends StatelessWidget {
       child: InkWell(
         onTap: onTap,
         child: Container(
+          height: height,
           padding: padding,
           margin: margin,
           alignment: Alignment.center,
@@ -114,6 +118,7 @@ class LCell extends StatelessWidget {
 class _CellPrimary extends LCell {
   _CellPrimary({
     final Key? key,
+    final double? height,
     final Color backgroundColor = Colors.white,
     final Widget prefixLeft = LGaps.empty,
     final Widget prefixRight = LGaps.empty,
@@ -136,6 +141,7 @@ class _CellPrimary extends LCell {
     final CrossAxisAlignment crossAxisAlignment = CrossAxisAlignment.center,
   }): super(
           key: key,
+          height: height,
           backgroundColor: backgroundColor,
           onTap: onTap,
           bordered: bordered,
