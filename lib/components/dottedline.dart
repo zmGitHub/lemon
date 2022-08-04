@@ -11,10 +11,6 @@ bool _isEmpty(double? d) {
 ///
 /// corner
 class LDottedLineCorner {
-  final double leftTopCorner;
-  final double rightTopCorner;
-  final double rightBottomCorner;
-  final double leftBottomCorner;
 
   /// 指定每一个圆角的大小
   ///
@@ -25,6 +21,11 @@ class LDottedLineCorner {
     this.rightBottomCorner = 0,
     this.leftBottomCorner = 0,
   });
+
+  final double leftTopCorner;
+  final double rightTopCorner;
+  final double rightBottomCorner;
+  final double leftBottomCorner;
 
   /// 设置所有圆角为一个大小
   ///
@@ -37,6 +38,20 @@ class LDottedLineCorner {
 }
 
 class LDottedLine extends StatefulWidget {
+  /// [LDottedLine] 为开发者提供了创建虚线的能力。同时支持为一个 [Widget] 创建虚线边框。支持控制虚线的粗细，间距，以及虚线边框的边角。
+  ///
+  /// [LDottedLine] provides developers with the ability to create dashed lines. It also supports creating a dashed border for a [Widget]. Support for controlling the thickness, spacing, and corners of the dotted border.
+  const LDottedLine({
+    this.color = Colors.black,
+    required this.height,
+    required this.width,
+    this.dottedLength = 5.0,
+    this.space = 3.0,
+    this.strokeWidth = 1.0,
+    this.corner,
+    required this.child,
+  });
+
   /// 虚线颜色
   ///
   /// Dotted line color
@@ -83,23 +98,6 @@ class LDottedLine extends StatefulWidget {
   /// At this time, [width] and [height] will no longer be valid.
   final Widget? child;
 
-  /// [LDottedLine] 为开发者提供了创建虚线的能力。同时支持为一个 [Widget] 创建虚线边框。支持控制虚线的粗细，间距，以及虚线边框的边角。
-  ///
-  /// [LDottedLine] provides developers with the ability to create dashed lines. It also supports creating a dashed border for a [Widget]. Support for controlling the thickness, spacing, and corners of the dotted border.
-  LDottedLine({
-    Key? key,
-    this.color = Colors.black,
-    this.height,
-    this.width,
-    this.dottedLength = 5.0,
-    this.space = 3.0,
-    this.strokeWidth = 1.0,
-    this.corner,
-    this.child,
-  }) : super(key: key) {
-    assert(width != null || height != null || child != null);
-  }
-
   @override
   _LDottedLineState createState() => _LDottedLineState();
 }
@@ -114,7 +112,7 @@ class _LDottedLineState extends State<LDottedLine> {
     if (_isEmpty(widget.width) && _isEmpty(widget.height) && widget.child == null) return LGaps.empty;
     if (widget.child != null) {
       tryToGetChildSize();
-      final List<Widget> children = [];
+      final List<Widget> children = <Widget>[];
       children.add(Container(
         clipBehavior: widget.corner == null ? Clip.none : Clip.antiAlias,
         decoration: BoxDecoration(
@@ -144,12 +142,12 @@ class _LDottedLineState extends State<LDottedLine> {
   }
 
   void tryToGetChildSize() {
-    WidgetsBinding.instance!.addPostFrameCallback((Duration timeStamp) {
+    WidgetsBinding.instance?.addPostFrameCallback((Duration timeStamp) {
       try {
         final RenderBox box = childKey.currentContext!.findRenderObject() as RenderBox;
-        double tempWidth = box.size.width;
-        double tempHeight = box.size.height;
-        bool needUpdate = tempWidth != childWidth || tempHeight != childHeight;
+        final double tempWidth = box.size.width;
+        final double tempHeight = box.size.height;
+        final bool needUpdate = tempWidth != childWidth || tempHeight != childHeight;
         if (needUpdate) {
           setState(() {
             childWidth = tempWidth;

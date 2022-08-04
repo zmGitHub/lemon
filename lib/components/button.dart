@@ -81,8 +81,10 @@ class LButton extends StatefulWidget {
     this.loadingWidget,
     this.lightOrientation = LLightOrientation.LeftTop,
   }) : super(key: key);
+
   /// 控制button内部的方法
   final LButtonController? controller;
+
   /// 当按下按钮时，会触发该函数。如果未设置该函数，按钮将进入不可用状态。
   ///
   /// When the button is pressed, the function is triggered.If this function is not set, the button will enter an unavailable state.
@@ -339,9 +341,11 @@ class _LButton extends State<LButton> with SingleTickerProviderStateMixin {
   }
 
   void _onParamsChange() {
-    final Map<String, dynamic> values = widget.controller?.value??<String, dynamic>{};
+    final Map<String, dynamic> values =
+        widget.controller?.value ?? <String, dynamic>{};
     if (values['loadingConfig'] != null) {
-      final ButtonLoadingValue loadingValue = values['loadingConfig'] as ButtonLoadingValue;
+      final ButtonLoadingValue loadingValue =
+      values['loadingConfig'] as ButtonLoadingValue;
       // TODO(turbo): 支持动态渲染loading的其他参数
       // loadingWidget = loadingValue.loadingWidget;
       // this.loading = false,
@@ -380,17 +384,17 @@ class _LButton extends State<LButton> with SingleTickerProviderStateMixin {
     final Widget? image;
     if (loading) {
       image = widget.loadingWidget ??
-        SizedBox(
-          width: widget.loadingSize,
-          height: widget.loadingSize,
-          child: CircularProgressIndicator(
-            strokeWidth: widget.loadingStrokeWidth!,
-            valueColor: AlwaysStoppedAnimation<Color>(widget.loadingColor ==
-                null
-                ? Theme.of(context).accentColor.withOpacity(disableOpacity)
-                : widget.loadingColor!.withOpacity(disableOpacity)),
-          ),
-        );
+          SizedBox(
+            width: widget.loadingSize,
+            height: widget.loadingSize,
+            child: CircularProgressIndicator(
+              strokeWidth: widget.loadingStrokeWidth!,
+              valueColor: AlwaysStoppedAnimation<Color>(widget.loadingColor ==
+                  null
+                  ? Theme.of(context).colorScheme.secondary.withOpacity(disableOpacity)
+                  : widget.loadingColor!.withOpacity(disableOpacity)),
+            ),
+          );
     } else {
       image = widget.image;
     }
@@ -437,7 +441,8 @@ class _LButton extends State<LButton> with SingleTickerProviderStateMixin {
       gradient: widget.gradient,
       shape: shape,
       surface: widget.surfaceStyle,
-      supportDropShadow: (shadowColor != null && shadowBlur != 0.0) || widget.isSupportNeumorphism!,
+      supportDropShadow: (shadowColor != null && shadowBlur != 0.0) ||
+          widget.isSupportNeumorphism!,
       dropShadow: LShadow(
         highlightColor: widget.isSupportNeumorphism!
             ? widget.highlightShadowColor ?? Colors.white.withOpacity(0.83)
@@ -633,43 +638,49 @@ class ButtonLoadingValue {
     this.hideTextOnLoading = false,
     this.loadingText,
   });
+
   /// 是否启动 Loading 状态。Loading 状态会覆盖 [image] 配置
   final bool loading;
   final Widget? loadingWidget;
+
   /// Loading 的颜色
   final Color? loadingColor;
+
   /// Loading 的宽度
   final double? loadingStrokeWidth;
+
   /// Loading 的大小
   final double? loadingSize;
+
   /// 是否启用点击进入 Loading 状态的模式
   final bool clickLoading;
+
   /// Loading 状态下是否隐藏文本
   final bool hideTextOnLoading;
+
   /// Loading 状态下展示的文本
   final String? loadingText;
 
-
-
   ButtonLoadingValue update(Map<String, dynamic> encoded) {
     return ButtonLoadingValue(
-      loading: (encoded['loading']??loading) as bool,
-      loadingWidget: (encoded['loadingWidget']??loadingWidget) as Widget,
-      loadingColor: (encoded['loadingColor']??loadingColor) as Color,
-      loadingStrokeWidth: (encoded['loadingStrokeWidth']??loadingStrokeWidth) as double,
-      loadingSize: (encoded['loadingSize']??loadingSize) as double,
-      clickLoading: (encoded['clickLoading']??clickLoading) as bool,
-      hideTextOnLoading: (encoded['hideTextOnLoading']??hideTextOnLoading) as bool,
-      loadingText: (encoded['loading']??loadingText) as String,
+      loading: (encoded['loading'] ?? loading) as bool,
+      loadingWidget: (encoded['loadingWidget'] ?? loadingWidget) as Widget,
+      loadingColor: (encoded['loadingColor'] ?? loadingColor) as Color,
+      loadingStrokeWidth:
+      (encoded['loadingStrokeWidth'] ?? loadingStrokeWidth) as double,
+      loadingSize: (encoded['loadingSize'] ?? loadingSize) as double,
+      clickLoading: (encoded['clickLoading'] ?? clickLoading) as bool,
+      hideTextOnLoading:
+      (encoded['hideTextOnLoading'] ?? hideTextOnLoading) as bool,
+      loadingText: (encoded['loading'] ?? loadingText) as String,
     );
   }
-
-
 }
 
 /// LButton controller 控制当前button的各种状态
 class LButtonController extends ValueNotifier<Map<String, dynamic>> {
-  LButtonController({ required Map<String, dynamic> value }) : super(value);
+  LButtonController({Map<String, dynamic> value = const <String, dynamic>{}})
+      : super(value);
 
   /// 控制loading显示和隐藏
   /// loading true显示 false隐藏
@@ -678,5 +689,4 @@ class LButtonController extends ValueNotifier<Map<String, dynamic>> {
       'loadingConfig': buttonLoadingValue,
     };
   }
-
 }

@@ -5,6 +5,7 @@ import 'package:lemon/styles/gaps.dart';
 class LCell extends StatelessWidget {
   const LCell({
     Key? key,
+    this.height,
     this.left = LGaps.empty,
     this.right = LGaps.empty,
     this.body = LGaps.empty,
@@ -20,6 +21,7 @@ class LCell extends StatelessWidget {
 
   factory LCell.primary({
     Key key,
+    double height,
     Color backgroundColor,
     Widget prefixLeft,
     Widget prefixRight,
@@ -42,6 +44,7 @@ class LCell extends StatelessWidget {
     CrossAxisAlignment crossAxisAlignment,
   }) = _CellPrimary;
 
+  final double? height;
   final Widget? left;
   final Widget? body;
   final Widget? right;
@@ -81,6 +84,7 @@ class LCell extends StatelessWidget {
       child: InkWell(
         onTap: onTap,
         child: Container(
+          height: height,
           padding: padding,
           margin: margin,
           alignment: Alignment.center,
@@ -114,6 +118,7 @@ class LCell extends StatelessWidget {
 class _CellPrimary extends LCell {
   _CellPrimary({
     final Key? key,
+    final double? height,
     final Color backgroundColor = Colors.white,
     final Widget prefixLeft = LGaps.empty,
     final Widget prefixRight = LGaps.empty,
@@ -135,40 +140,41 @@ class _CellPrimary extends LCell {
     final GestureTapCallback? onTap,
     final CrossAxisAlignment crossAxisAlignment = CrossAxisAlignment.center,
   }): super(
-          key: key,
-          backgroundColor: backgroundColor,
-          onTap: onTap,
-          bordered: bordered,
-          crossAxisAlignment: crossAxisAlignment,
-          margin: margin,
-          padding: padding,
-          left: left??Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              prefixLeft,
-              Text(
-                title,
-                style: const TextStyle(
-                  color: Colours.gray8,
-                ).merge(titleStyle),
-              ),
-              prefixRight,
-            ],
-          ),
-          body: Padding(
-            padding: labelPadding,
-            child: body??Text(
-              label,
-              style: const TextStyle(
-                color: Colours.gray6,
-              ).merge(labelStyle),
-              textAlign: TextAlign.right,
-            ),
-          ),
-          content: content,
-          right: right ?? (isLink ? Padding(
-            padding: linkPadding,
-            child: linkIcon,
-          ) : LGaps.empty),
-        );
+    key: key,
+    height: height,
+    backgroundColor: backgroundColor,
+    onTap: onTap,
+    bordered: bordered,
+    crossAxisAlignment: crossAxisAlignment,
+    margin: margin,
+    padding: padding,
+    left: left??Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        prefixLeft,
+        Text(
+          title,
+          style: const TextStyle(
+            color: Colours.gray8,
+          ).merge(titleStyle),
+        ),
+        prefixRight,
+      ],
+    ),
+    body: Padding(
+      padding: labelPadding,
+      child: body??Text(
+        label,
+        style: const TextStyle(
+          color: Colours.gray6,
+        ).merge(labelStyle),
+        textAlign: TextAlign.right,
+      ),
+    ),
+    content: content,
+    right: right ?? (isLink ? Padding(
+      padding: linkPadding,
+      child: linkIcon,
+    ) : LGaps.empty),
+  );
 }
