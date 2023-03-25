@@ -65,8 +65,7 @@ class LAppBar extends StatelessWidget implements PreferredSizeWidget {
     final bool canPop = parentRoute?.canPop ?? false;
 
     // 状态栏样式
-    final Brightness _brightness =
-        brightness ?? appBarTheme.brightness ?? theme.primaryColorBrightness;
+    final Brightness _brightness = brightness ?? Brightness.dark;
     final SystemUiOverlayStyle overlayStyle = _brightness == Brightness.dark
         ? SystemUiOverlayStyle.light
         : SystemUiOverlayStyle.dark;
