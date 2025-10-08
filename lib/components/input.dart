@@ -220,6 +220,7 @@ class _LabelInput extends LInput {
             counterText: '',
             hintText: hintText,
             isDense: true,
+            contentPadding: EdgeInsets.zero,
             hintStyle: const TextStyle(
               fontSize: 14.0,
               color: Colours.gray5,

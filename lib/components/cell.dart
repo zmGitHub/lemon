@@ -11,6 +11,7 @@ class LCell extends StatelessWidget {
     this.body = LGaps.empty,
     this.content,
     this.onTap,
+    this.constraints,
     this.decoration,
     this.backgroundColor = Colors.white,
     this.padding = const EdgeInsets.symmetric(vertical: 16),
@@ -31,6 +32,7 @@ class LCell extends StatelessWidget {
     TextStyle labelStyle,
     bool bordered,
     bool isLink,
+    BoxConstraints constraints,
     EdgeInsets padding,
     EdgeInsets linkPadding,
     EdgeInsets labelPadding,
@@ -51,6 +53,7 @@ class LCell extends StatelessWidget {
   final Widget? content;
   final bool? bordered;
   final Color? backgroundColor;
+  final BoxConstraints? constraints;
   final BoxDecoration? decoration;
   final EdgeInsetsGeometry? padding;
   final EdgeInsetsGeometry? margin;
@@ -79,38 +82,69 @@ class LCell extends StatelessWidget {
         ],
       );
     }
-    return Material(
-      color: backgroundColor,
-      child: InkWell(
-        onTap: onTap,
-        child: Container(
-          height: height,
-          padding: padding,
-          margin: margin,
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            border: bordered!
-                ? Border(
-              bottom: Divider.createBorderSide(
-                context,
-                width: 0.7,
-                color: Colours.gray3,
-              ),
-            )
-                : null,
-          ).copyWith(
-            border: decoration?.border,
-            color: decoration?.color,
-            image: decoration?.image,
-            borderRadius: decoration?.borderRadius,
-            boxShadow: decoration?.boxShadow,
-            gradient: decoration?.gradient,
-            backgroundBlendMode: decoration?.backgroundBlendMode,
-            shape: decoration?.shape,
+    if (onTap != null) {
+      return Material(
+        color: backgroundColor,
+        child: InkWell(
+          onTap: onTap,
+          child: Container(
+            height: height,
+            padding: padding,
+            margin: margin,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              border: bordered!
+                  ? Border(
+                bottom: Divider.createBorderSide(
+                  context,
+                  width: 0.7,
+                  color: Colours.gray3,
+                ),
+              )
+                  : null,
+            ).copyWith(
+              border: decoration?.border,
+              color: decoration?.color,
+              image: decoration?.image,
+              borderRadius: decoration?.borderRadius,
+              boxShadow: decoration?.boxShadow,
+              gradient: decoration?.gradient,
+              backgroundBlendMode: decoration?.backgroundBlendMode,
+              shape: decoration?.shape,
+            ),
+            child: child,
           ),
-          child: child,
         ),
+      );
+    }
+    return Container(
+      height: height,
+      padding: padding,
+      margin: margin,
+      alignment: Alignment.center,
+      constraints: constraints,
+      decoration: BoxDecoration(
+        color: backgroundColor,
+        border: bordered!
+            ? Border(
+          bottom: Divider.createBorderSide(
+            context,
+            width: 0.7,
+            color: Colours.gray3,
+          ),
+        )
+            : null,
+      ).copyWith(
+        border: decoration?.border,
+        color: decoration?.color,
+        image: decoration?.image,
+        borderRadius: decoration?.borderRadius,
+        boxShadow: decoration?.boxShadow,
+        gradient: decoration?.gradient,
+        backgroundBlendMode: decoration?.backgroundBlendMode,
+        shape: decoration?.shape,
       ),
+      child: child,
     );
   }
 }
@@ -128,6 +162,8 @@ class _CellPrimary extends LCell {
     final TextStyle? labelStyle,
     final bool bordered = true,
     final bool isLink = false,
+    final BoxConstraints? constraints,
+    final BoxDecoration? decoration,
     final EdgeInsets padding = const EdgeInsets.symmetric(vertical: 16),
     final EdgeInsets labelPadding = const EdgeInsets.only(right: 15.0),
     final EdgeInsets linkPadding = const EdgeInsets.symmetric(horizontal: 10),
@@ -148,6 +184,8 @@ class _CellPrimary extends LCell {
           crossAxisAlignment: crossAxisAlignment,
           margin: margin,
           padding: padding,
+          constraints: constraints,
+          decoration: decoration,
           left: left??Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
